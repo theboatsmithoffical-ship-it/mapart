@@ -1,0 +1,36 @@
+# ---- runtime / generated data (never commit) ----
+mapart-data/
+acceptance_run/
+measured_run/
+breeding_cli_demo/
+operator-ws/
+optimizer-champion/
+screenshots/
+reports/
+*.ffevopack
+
+# ---- build outputs and copied layouts ----
+dist/
+portable/
+build/
+*.egg-info/
+
+# ---- caches / environments ----
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+node_modules/
+
+# ---- logs and local scratch ----
+*.log
+_audit_out.json
+_audit_err.txt
+
+# ---- secrets / local configuration ----
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
