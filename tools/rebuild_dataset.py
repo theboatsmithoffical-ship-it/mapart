@@ -112,12 +112,25 @@ def main() -> int:
     for iid in rest[: (len(rest) // 2)][:10]:
         holdout_ids.append(iid)
     holdout_used = set(holdout_ids)
-    dev_ids = [i for i in rest if i not in holdout_used]
+    remaining = [i for i in rest if i not in holdout_used]
+    # a separate validation split for parameter selection (kept out of both
+    # training-only data and the final held-out evaluation set)
+    validation_ids = remaining[: max(1, min(4, len(remaining) // 4))] \
+        if len(remaining) > 2 else []
+    validation_used = set(validation_ids)
+    dev_ids = [i for i in remaining if i not in validation_used]
     for iid, purpose in ([(i, "stress") for i in stress_ids] +
                          [(i, "holdout") for i in holdout_ids] +
+                         [(i, "validation") for i in validation_ids] +
                          [(i, "dev") for i in dev_ids]):
-        lib.set_membership(iid, [purpose])
+        # membership of the locked holdout set is confirmed explicitly here
+        # and recorded in membership_log.jsonl by the library
+        # a full explicit rebuild may re-split images that were previously
+        # held out; the confirmation and reason are journalled per image
+        lib.assign_set(iid, purpose, confirm=True,
+                       reason=f"explicit dataset rebuild split ({purpose})")
     report["holdout_ids"] = holdout_ids
+    report["validation_ids"] = validation_ids
     report["stress_ids"] = stress_ids
 
     # ---- locally generated synthetic suite (needed offline, zero network) ----
@@ -133,6 +146,7 @@ def main() -> int:
     for e in manifest["images"]:
         for p in e.get("datasets", []):
             counts[p] = counts.get(p, 0) + 1
+    report["manifest_digest"] = lib.manifest_digest()
     disk = sum(Path(lib.file_path(e) or "").stat().st_size for e in manifest["images"]
                if Path(lib.file_path(e) or "").is_file()) // (1024 * 1024)
     report.update({

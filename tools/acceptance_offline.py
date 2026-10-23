@@ -23,8 +23,10 @@ empty.
 from __future__ import annotations
 
 import json
+import os
 import shutil
 import socket
+import subprocess
 import sys
 import threading
 import time
@@ -285,6 +287,25 @@ def main() -> int:
                  f' (PermissionError recorded) — optimizer never trains on '
                  f'the final-evaluation set')
 
+    # ---------------- 10. offline manifest + asset health + catalog ----------------
+    env = {**os.environ, "PYTHONPATH": str(ROOT / "src")}
+    vm = subprocess.run([sys.executable, "tools/verify_manifest.py",
+                         "--library", str(DATA_DIR),
+                         "--json", str(WORK / "manifest_verify.json")],
+                        capture_output=True, text=True, cwd=str(ROOT), env=env)
+    ah = subprocess.run([sys.executable, "tools/asset_health.py",
+                         "--data-dir", str(DATA_DIR),
+                         "--json", str(WORK / "asset_health.json")],
+                        capture_output=True, text=True, cwd=str(ROOT), env=env)
+    from firefly.mapart.assetcatalog import AssetCatalog
+    cov = AssetCatalog(DATA_DIR / "assetcatalog.db").benchmark_coverage()
+    step10 = step("offline_manifest_asset_health_catalog",
+                  vm.returncode == 0 and ah.returncode == 0,
+                  f'manifest verification exit {vm.returncode} '
+                  f'({vm.stdout.strip().splitlines()[0] if vm.stdout else "?"}), '
+                  f'asset health exit {ah.returncode}, '
+                  f'benchmark runs recorded {cov["runs"]}')
+
     # ---------------- 9. zero network ----------------
     total = round(time.time() - t_all, 1)
     report["network_attempts"] = NET_ATTEMPTS
@@ -292,7 +313,8 @@ def main() -> int:
     report["dataset_stats"] = report.pop("preflight")
     report["wall_time_s"] = total
     ok_all = (step1 and step_two and step3 and step4 and step5 and step6
-              and step7 and step8 and not NET_ATTEMPTS and not DOWNLOADER_CALLS)
+              and step7 and step8 and step10
+              and not NET_ATTEMPTS and not DOWNLOADER_CALLS)
     step("no_network_required",
          not NET_ATTEMPTS and not DOWNLOADER_CALLS,
          f'{len(NET_ATTEMPTS)} network attempts, '
