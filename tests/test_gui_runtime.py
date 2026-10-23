@@ -457,7 +457,8 @@ def t20_dataset_revisions_comparable():
         testsuite.rasterize(shifted).save(fx, format="PNG")
         lib.add_local(str(fx), datasets=["dev"])
     r1 = lib.manifest["dataset_revision"]
-    lib.set_membership(lib.ids()[0], ["holdout"])  # membership change bumps
+    lib.set_membership(lib.ids()[0], ["holdout"],  # explicit: locked set
+                       reason="revision-comparability fixture", confirm=True)
     r2 = lib.manifest["dataset_revision"]
     check("t20 revisions bumped + comparable", r2 > r1 and
           len(lib.revisions()) >= 2, f"{r1}->{r2}")

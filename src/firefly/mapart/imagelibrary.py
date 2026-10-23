@@ -12,7 +12,18 @@ All heavy decisions made by real code; nothing is downloaded implicitly:
   AGGREGATE-ONLY at checkpoints (enforced by benchmark/lab wiring, tested).
 - Revisions: manifest bumps dataset_revision on membership change; older
   revisions preserved as imagelibrary/revisions/rev-N.json for fair compare.
-- Offline readiness: every manifest entry must have a local readable file.
+- Purpose sets are explicit: dev | validation | holdout | stress | synthetic.
+  The held-out evaluation set is LOCKED: adding to or removing from it, or
+  moving an image out of it, needs `confirm=True` and a written reason, and
+  every change is appended to imagelibrary/membership_log.jsonl. Nothing is
+  promoted between sets silently.
+- Resources are bounded by a StoragePolicy: per-file and whole-library
+  quotas, image count, decoded-pixel ceiling, allowed formats. Parsing is
+  hardened (extension is not trusted; format/dimensions are checked before
+  decode) and downloads resume from a verified byte offset.
+- Thumbnails are cached under imagelibrary/thumbs/ and reused by hash.
+- Offline readiness: every manifest entry must have a local readable file;
+  `manifest_digest()` content-addresses the manifest for offline comparison.
 """
 from __future__ import annotations
 
@@ -24,6 +35,7 @@ import shutil
 import time
 import urllib.parse
 import urllib.request
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 import numpy as np
@@ -32,6 +44,63 @@ USER_AGENT = ("FireflyMapArtEngine/1.0 (local offline map-art tool; contact: loc
 WIKIMEDIA_ENDPOINT = "https://commons.wikimedia.org/w/api.php"
 DEFAULT_PALETTE_KEY = "survival-wool-1.8"
 MAX_DEFAULT_FILE_MB = 25
+ANALYSIS_VERSION = 2  # bump when measured fields/tags change meaning
+
+# Purpose sets. `holdout` is the final-evaluation set and is locked against
+# silent membership changes; `validation` is for parameter selection and is
+# kept separate from both training data and the final held-out set.
+PURPOSES = ("dev", "validation", "holdout", "stress", "synthetic")
+LOCKED_PURPOSE = "holdout"
+
+DEFAULT_ALLOWED_FORMATS = ("PNG", "JPEG", "WEBP", "BMP", "TIFF")
+
+
+def license_status(value: str | None) -> str:
+    """'missing' (no license), 'unknown', or 'recorded'."""
+    text = (value or "").strip()
+    if not text:
+        return "missing"
+    if text.lower() in ("unknown", "n/a", "none", "?"):
+        return "unknown"
+    return "recorded"
+
+
+@dataclass(frozen=True)
+class StoragePolicy:
+    """Configurable resource limits for the image library.
+
+    Defaults are generous enough for the existing library but bounded:
+    no single download may be unbounded, no library may grow forever, and no
+    image may be decoded beyond `max_pixels` (decompression-bomb guard).
+    """
+    max_file_mb: int = MAX_DEFAULT_FILE_MB
+    max_library_mb: int = 2048
+    max_images: int = 2000
+    max_pixels: int = 64_000_000
+    thumb_px: int = 128
+    allowed_formats: tuple = DEFAULT_ALLOWED_FORMATS
+
+    def to_dict(self) -> dict:
+        return {"max_file_mb": self.max_file_mb,
+                "max_library_mb": self.max_library_mb,
+                "max_images": self.max_images,
+                "max_pixels": self.max_pixels,
+                "thumb_px": self.thumb_px,
+                "allowed_formats": list(self.allowed_formats)}
+
+    @classmethod
+    def from_dict(cls, blob: dict | None) -> "StoragePolicy":
+        blob = blob or {}
+        base = cls()
+        allowed = blob.get("allowed_formats")
+        return cls(
+            max_file_mb=int(blob.get("max_file_mb", base.max_file_mb)),
+            max_library_mb=int(blob.get("max_library_mb", base.max_library_mb)),
+            max_images=int(blob.get("max_images", base.max_images)),
+            max_pixels=int(blob.get("max_pixels", base.max_pixels)),
+            thumb_px=int(blob.get("thumb_px", base.thumb_px)),
+            allowed_formats=tuple(str(x).upper() for x in allowed)
+            if allowed else base.allowed_formats)
 
 CAPABILITY_CATEGORIES = (
     "landscape", "sky", "forest", "water", "animal", "plant", "face",
@@ -45,28 +114,97 @@ class LibraryError(RuntimeError):
     pass
 
 
+class HoldoutLocked(LibraryError):
+    """Held-out evaluation membership changed without explicit confirmation."""
+
+
 # --------------------------------------------------------------------------
 # analysis (numpy + PIL only)
 # --------------------------------------------------------------------------
 
-def _load_small(path, max_px=256):
-    from PIL import Image
-    im = Image.open(path)
-    im.load()
-    w, h = im.size
-    scale = 1.0
-    if max(w, h) > max_px:
-        scale = max_px / float(max(w, h))
-    small = im.resize((max(1, int(w * scale)), max(1, int(h * scale))))
-    return im, np.asarray(small.convert("RGB"), dtype=np.float64)
+def safe_image_info(path, policy: "StoragePolicy | None" = None) -> dict:
+    """Validate a candidate image WITHOUT trusting its file extension.
+
+    Checks (in order, all before a full decode): extension and detected
+    format are allowed, the file is within the per-file byte cap, the header
+    is readable, and width*height is within the pixel ceiling (the
+    decompression-bomb guard). Corruption surfaces as LibraryError, never as
+    a traceback from PIL.
+    """
+    from PIL import Image, UnidentifiedImageError
+    policy = policy or StoragePolicy()
+    p = Path(path)
+    if not p.is_file():
+        raise LibraryError(f"file not found: {p}")
+    size = p.stat().st_size
+    if size <= 0:
+        raise LibraryError(f"empty file: {p.name}")
+    if size > policy.max_file_mb * 1024 * 1024:
+        raise LibraryError(
+            f"file too large: {p.name} is {size / 1048576:.1f} MB "
+            f"(limit {policy.max_file_mb} MB)")
+    ext = p.suffix.lower().lstrip(".")
+    if ext and ext not in ("png", "jpg", "jpeg", "webp", "bmp", "tif", "tiff"):
+        raise LibraryError(f"unsupported file type: .{ext} ({p.name})")
+    try:
+        with Image.open(p) as im:
+            fmt = (im.format or "").upper()
+            w, h = im.size
+            mode = im.mode
+            has_alpha = mode in ("RGBA", "LA") or (
+                mode == "P" and "transparency" in (im.info or {}))
+            if fmt not in policy.allowed_formats:
+                raise LibraryError(
+                    f"unsupported image format {fmt or 'unknown'} for {p.name}; "
+                    f"allowed: {', '.join(policy.allowed_formats)}")
+            if w <= 0 or h <= 0:
+                raise LibraryError(f"invalid dimensions {w}x{h} for {p.name}")
+            if w * h > policy.max_pixels:
+                raise LibraryError(
+                    f"image too large to decode safely: {w}x{h} = {w * h} px "
+                    f"(limit {policy.max_pixels} px)")
+            im.verify()
+        with Image.open(p) as im2:  # full decode proves the payload is intact
+            im2.load()
+    except LibraryError:
+        raise
+    except Image.DecompressionBombError as ex:
+        raise LibraryError(f"decompression bomb rejected: {p.name}: {ex}")
+    except (UnidentifiedImageError, OSError, ValueError, SyntaxError) as ex:
+        raise LibraryError(
+            f"corrupt or unreadable image: {p.name}: {type(ex).__name__}: {ex}")
+    return {"format": fmt, "width": int(w), "height": int(h), "mode": mode,
+            "has_alpha": bool(has_alpha), "bytes": int(size)}
 
 
-def analyze_image(path: str, palette_arr: np.ndarray | None = None) -> dict:
-    """Measured visual properties + capability tags. Sampling keeps memory low."""
+def _load_small(path, max_px=256, policy: "StoragePolicy | None" = None):
+    """Decode a bounded downsample. Returns (rgb float array, alpha share, info)."""
     from PIL import Image
-    im, arr = _load_small(path)
-    w, h = im.size
-    im.close()
+    info = safe_image_info(path, policy)
+    with Image.open(path) as im:
+        w, h = im.size
+        scale = 1.0
+        if max(w, h) > max_px:
+            scale = max_px / float(max(w, h))
+        small = im.resize((max(1, int(w * scale)), max(1, int(h * scale))))
+        arr = np.asarray(small.convert("RGB"), dtype=np.float64)
+        alpha_share = 0.0
+        if info["has_alpha"]:
+            alpha = np.asarray(small.convert("RGBA"))[..., 3]
+            alpha_share = round(float((alpha < 250).mean()), 4)
+    return arr, alpha_share, info
+
+
+def characteristics(path: str, palette_arr: np.ndarray | None = None,
+                    policy: "StoragePolicy | None" = None) -> dict:
+    """Deterministic measured properties used for benchmark balancing.
+
+    Same bytes in -> identical dict out (no timestamps, no unordered sets,
+    fixed sample size, stable tie-breaks), so two runs can be compared
+    exactly and the result can be content-addressed (`characteristics_digest`).
+    """
+    arr, alpha_share, info = _load_small(path, policy=policy)
+    w, h = info["width"], info["height"]
     px = arr.reshape(-1, 3)
     # color diversity (sampled unique hues at 16-step quantization)
     q = (px // 16).astype(np.int32)
@@ -82,11 +220,19 @@ def analyze_image(path: str, palette_arr: np.ndarray | None = None) -> dict:
     edge_density = round(float((edges > 12).mean()), 4)
     # flat area share
     flat_share = round(float((edges < 2).mean()), 4)
-    # dominant colors (32-bin RGB histogram top clusters)
+    # dominant colors (32-bin RGB histogram; stable order by count then bin)
     q64 = (px // 32).astype(np.int32)
     vals, cnts = np.unique(q64, axis=0, return_counts=True)
-    order = np.argsort(cnts)[::-1][:8]
+    grouped = sorted(range(len(cnts)),
+                     key=lambda i: (-int(cnts[i]), tuple(int(x) for x in vals[i])))
+    order = grouped[:8]
     dominant = [int(c) for c in (cnts[order] / cnts.sum() * 10000)]  # basis points
+    dominant_rgb = []
+    for i in order:
+        bin_rows = np.all(q64 == vals[i], axis=1)
+        mean = np.rint(px[bin_rows].mean(axis=0)).astype(int)
+        dominant_rgb.append({"rgb": [int(x) for x in mean],
+                             "share_basis_pts": int(cnts[i] / cnts.sum() * 10000)})
     # similarity of many colors to each other (how hard matching is)
     if len(uniq) > 1:
         diffs = np.asarray(uniq, dtype=np.float64)[:, None, :]
@@ -125,6 +271,11 @@ def analyze_image(path: str, palette_arr: np.ndarray | None = None) -> dict:
         tags.append("out-of-palette")
     if color_diversity > 0.75:
         tags.append("broad-range")
+    # detail complexity: edge energy, with a small bonus for non-flat area and
+    # colour spread; bounded to 1.0 so it can be used for balancing directly.
+    detail_complexity = round(min(1.0, edge_density * 2.0
+                                  + (1.0 - flat_share) * 0.25
+                                  + color_diversity * 0.1), 4)
     return {"width": int(w), "height": int(h), "aspect": round(w / max(1, h), 4),
             "color_diversity": color_diversity, "brightness": brightness,
             "contrast": contrast, "edge_density": edge_density,
@@ -132,8 +283,28 @@ def analyze_image(path: str, palette_arr: np.ndarray | None = None) -> dict:
             "palette_coverage": pal_coverage,
             "out_of_palette_share": out_of_palette_share,
             "dominant_color_basis_pts": dominant,
+            "dominant_colors_rgb": dominant_rgb,
+            "transparency_share": alpha_share,
+            "has_alpha": info["has_alpha"],
+            "source_format": info["format"],
+            "detail_complexity": detail_complexity,
             "capability_tags": tags,
-            "analyzed": time.time()}
+            "analysis_version": ANALYSIS_VERSION}
+
+
+def analyze_image(path: str, palette_arr: np.ndarray | None = None,
+                  policy: "StoragePolicy | None" = None) -> dict:
+    """`characteristics` plus the observation time (manifest storage)."""
+    out = characteristics(path, palette_arr=palette_arr, policy=policy)
+    out["analyzed"] = time.time()
+    return out
+
+
+def characteristics_digest(analysis: dict) -> str:
+    """Content address of a characteristics dict (timestamps excluded)."""
+    blob = {k: v for k, v in analysis.items() if k != "analyzed"}
+    return hashlib.sha256(json.dumps(blob, sort_keys=True, separators=(",", ":"),
+                                     default=str).encode("utf-8")).hexdigest()[:16]
 
 
 def gradient_smoothness(arr: np.ndarray) -> float:
@@ -233,15 +404,91 @@ def _sha256(path: Path) -> str:
 
 
 class ImageLibrary:
-    def __init__(self, data_dir):
+    def __init__(self, data_dir, policy: "StoragePolicy | None" = None):
         self.dir = Path(data_dir) / "imagelibrary"
         self.dir.mkdir(parents=True, exist_ok=True)
         self.rev_dir = self.dir / "revisions"
         self.rev_dir.mkdir(parents=True, exist_ok=True)
+        self.thumbs_dir = self.dir / "thumbs"
+        self.thumbs_dir.mkdir(parents=True, exist_ok=True)
+        self.membership_log = self.dir / "membership_log.jsonl"
+        self.import_journal = self.dir / "import_journal.json"
+        self.policy_path = self.dir / "policy.json"
+        if policy is None:
+            policy = self._load_policy()
+        self.policy = policy
         self.manifest_path = self.dir / "manifest.json"
         self.manifest = {"version": 1, "dataset_revision": 0, "images": [],
                          "updated": time.time()}
         self.load_manifest()
+
+    # ---------------- configurable policy ----------------
+    def _load_policy(self) -> "StoragePolicy":
+        if self.policy_path.is_file():
+            try:
+                return StoragePolicy.from_dict(
+                    json.loads(self.policy_path.read_text(encoding="utf-8")))
+            except (json.JSONDecodeError, OSError, TypeError, ValueError):
+                pass  # corrupt policy -> documented defaults, never crash
+        return StoragePolicy()
+
+    def save_policy(self) -> dict:
+        """Persist the active limits so they survive restarts."""
+        blob = self.policy.to_dict()
+        tmp = self.policy_path.with_suffix(".tmp")
+        tmp.write_text(json.dumps(blob, indent=1), encoding="utf-8")
+        os.replace(tmp, self.policy_path)
+        return blob
+
+    def set_policy(self, **changes) -> dict:
+        """Update individual limits (e.g. max_library_mb=500) and persist."""
+        self.policy = replace(self.policy, **changes)
+        return self.save_policy()
+
+    # ---------------- resource accounting ----------------
+    def library_bytes(self) -> int:
+        total = 0
+        for e in self.manifest["images"]:
+            p = self.file_path(e)
+            if p:
+                try:
+                    total += Path(p).stat().st_size
+                except OSError:
+                    pass
+        try:
+            for t in self.thumbs_dir.glob("*.jpg"):
+                total += t.stat().st_size
+        except OSError:
+            pass
+        return total
+
+    def quota_status(self) -> dict:
+        used = self.library_bytes()
+        limit = self.policy.max_library_mb * 1024 * 1024
+        return {"used_bytes": used, "used_mb": round(used / 1048576, 2),
+                "limit_mb": self.policy.max_library_mb,
+                "used_pct": round(100.0 * used / limit, 1) if limit else None,
+                "images": len(self.manifest["images"]),
+                "image_limit": self.policy.max_images,
+                "free_disk_mb": self.free_space_mb()}
+
+    def _check_capacity(self, add_bytes: int):
+        """Refuse BEFORE touching the library; limits are configurable but
+        always enforced (no silent overrun, no truncation)."""
+        if len(self.manifest["images"]) >= self.policy.max_images:
+            raise LibraryError(
+                f"image limit reached: {len(self.manifest['images'])}/"
+                f"{self.policy.max_images} (raise max_images in "
+                f"{self.policy_path.name})")
+        used = self.library_bytes()
+        limit = self.policy.max_library_mb * 1024 * 1024
+        if used + add_bytes > limit:
+            raise LibraryError(
+                f"library storage limit would be exceeded: "
+                f"{(used + add_bytes) / 1048576:.1f} MB > {self.policy.max_library_mb} MB "
+                f"(raise max_library_mb in {self.policy_path.name})")
+        if self.free_space_mb() * 1024 * 1024 < add_bytes:
+            raise LibraryError("not enough free disk space for this import")
 
     # ---------------- manifest ----------------
     def load_manifest(self):
@@ -340,6 +587,12 @@ class ImageLibrary:
     def ids(self):
         return [i["id"] for i in self.manifest["images"]]
 
+    def manifest_digest(self) -> str:
+        """Content address of the manifest (membership + hashes + metadata),
+        stable across machines and observation timestamps, for offline compare."""
+        return manifest_content_digest(self.manifest["images"],
+                                       self.manifest.get("dataset_revision", 0))
+
     # ---------------- add / download ----------------
     def add_local(self, path: str, source_label: str = "local-user-folder",
                   datasets: list | None = None) -> dict:
@@ -347,7 +600,11 @@ class ImageLibrary:
         src = Path(path)
         if not src.is_file():
             raise LibraryError(f"file not found: {src}")
-        tmp = self.dir / f"_probe_{src.name}"
+        # validate the bytes BEFORE copying them into the library, so a
+        # malformed/huge file never consumes quota even temporarily
+        safe_image_info(src, self.policy)
+        self._check_capacity(src.stat().st_size)
+        tmp = self.dir / f"_probe_{_safe_name(src.stem, 60)}{src.suffix.lower()}"
         shutil.copy2(src, tmp)
         entry = self._image_entry(tmp, source=source_label,
                                   source_url="", license_="user-owned",
@@ -363,20 +620,27 @@ class ImageLibrary:
         url = cand.get("url")
         if not url:
             raise LibraryError("candidate has no url")
+        scheme = urllib.parse.urlsplit(str(url)).scheme.lower()
+        if scheme not in ("http", "https"):
+            raise LibraryError(f"refusing to download non-http(s) url: {scheme or '?'}")
         digest = hashlib.sha256(url.encode("utf-8")).hexdigest()[:16]
         fname = f"{digest}_{_safe_name(cand.get('title', 'img'))}"
         ext = ".png" if "png" in cand.get("mime", "") else ".jpg"
         dest = self.dir / (fname + ext)
         part = self.dir / (dest.name + ".part")
-        langd = 0
-        if part.exists():
-            langd = part.stat().st_size
-        # duplicate detection: same source digest already downloaded?
+        # duplicate detection: same source page already downloaded?
         for e in self.manifest["images"]:
             if e.get("source", "").startswith("wikimedia") and \
                e.get("source_url") == cand.get("page_url", "") and \
                (self.dir / e.get("file_name", "")).exists():
                 return {"id": e["id"], "duplicate": True}
+        cap = self.policy.max_file_mb * 1024 * 1024
+        declared = int(cand.get("bytes") or 0)
+        if declared > cap:
+            raise LibraryError(
+                f"candidate is {declared / 1048576:.1f} MB, above the "
+                f"{self.policy.max_file_mb} MB per-file limit; not downloaded")
+        self._check_capacity(declared or 1)
         tmp = self.dir / f"_dl_{fname}{ext}"
         try:
             last_err: Exception | None = None
@@ -384,20 +648,35 @@ class ImageLibrary:
                 if attempt:
                     time.sleep(min(20.0, 5.0 * attempt))
                 try:
-                    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-                    mode = "ab" if part.exists() and part.stat().st_size else "wb"
-                    with urllib.request.urlopen(req, timeout=120) as r, open(part, mode) as f:
-                        total = int(r.headers.get("Content-Length", 0)) or cand.get("bytes", 0)
-                        got = f.tell() if mode == "ab" else 0
-                        while True:
-                            chunk = r.read(1 << 18)
-                            if not chunk:
-                                break
-                            f.write(chunk)
-                            got += len(chunk)
-                            if progress and total:
-                                progress(min(1.0, got / total),
-                                         f"{fname}: {got // 1024} kB")
+                    have = part.stat().st_size if part.exists() else 0
+                    headers = {"User-Agent": USER_AGENT}
+                    if have:
+                        headers["Range"] = f"bytes={have}-"
+                    req = urllib.request.Request(url, headers=headers)
+                    with urllib.request.urlopen(req, timeout=120) as r:
+                        status = int(getattr(r, "status", 200) or 200)
+                        # a server that ignores Range sends 200 + full body
+                        if have and status != 206:
+                            have = 0
+                        remaining = int(r.headers.get("Content-Length", 0)) or 0
+                        full_total = (have + remaining) if remaining else declared
+                        mode = "ab" if have else "wb"
+                        got = have
+                        with open(part, mode) as f:
+                            while True:
+                                chunk = r.read(1 << 18)
+                                if not chunk:
+                                    break
+                                got += len(chunk)
+                                if got > cap:
+                                    raise LibraryError(
+                                        f"download exceeded the "
+                                        f"{self.policy.max_file_mb} MB limit; "
+                                        f"partial file discarded")
+                                f.write(chunk)
+                                if progress and full_total:
+                                    progress(min(1.0, got / full_total),
+                                             f"{fname}: {got // 1024} kB")
                     break
                 except urllib.error.HTTPError as ex:
                     last_err = ex
@@ -420,8 +699,12 @@ class ImageLibrary:
             if progress:
                 progress(1.0, f"{fname}: verifying")
             shutil.move(str(part), str(tmp))
-        finally:
+        except LibraryError:
             part.unlink(missing_ok=True)
+            raise
+        finally:
+            if not tmp.exists():
+                part.unlink(missing_ok=True)
         entry = self._image_entry(tmp, source=cand.get("source", "wikimedia_commons"),
                                   source_url=cand.get("page_url", ""),
                                   license_=cand.get("license", "unknown"),
@@ -435,14 +718,8 @@ class ImageLibrary:
     def _image_entry(self, candidate_file: Path, source: str, source_url: str,
                      license_, author, title, datasets) -> dict:
         """Verify integrity + measure, then move into the library with stable id."""
-        from PIL import Image, UnidentifiedImageError
-        try:
-            with Image.open(candidate_file) as im:
-                im.verify()
-            with Image.open(candidate_file) as im2:  # full decode check
-                im2.load()
-        except (UnidentifiedImageError, OSError, ValueError) as ex:
-            raise LibraryError(f"corrupt or unreadable image: {type(ex).__name__}: {ex}")
+        info = safe_image_info(candidate_file, self.policy)  # extension untrusted
+        self._check_capacity(candidate_file.stat().st_size)
         digest = _sha256(candidate_file)
         # strip sourced-html fragments (Commons API returns rich text)
         author = re.sub(r"<[^>]+>", "", author or "").strip()[:160]
@@ -451,12 +728,15 @@ class ImageLibrary:
             if e.get("sha256") == digest:
                 return {"id": e["id"], "duplicate_of": e["id"]}
         iid = "img_" + digest[:12]
-        ext = candidate_file.suffix.lower() or ".png"
+        # extension follows the DETECTED format, not the source file's name
+        ext = {"JPEG": ".jpg", "TIFF": ".tif"}.get(info["format"],
+                                                    "." + info["format"].lower())
         final = self.dir / f"{iid}{ext}"
         shutil.move(str(candidate_file), str(final))
         final_abs = final.resolve()
         pal_arr = palette_rgb()
-        analysis = analyze_image(str(final), palette_arr=pal_arr)
+        analysis = analyze_image(str(final), palette_arr=pal_arr,
+                                 policy=self.policy)
         return {"id": iid, "file_name": final.name, "path": str(final_abs),
                 "sha256": digest, "source": source, "source_url": source_url,
                 "license": license_,
@@ -503,12 +783,69 @@ class ImageLibrary:
                 "library_dir": str(self.dir)}
 
     # ---------------- dataset sets ----------------
-    def set_membership(self, image_id: str, datasets: list):
+    def _log_membership(self, image_id: str, before: list, after: list,
+                        reason: str, confirmed: bool):
+        """Append-only audit trail: set changes are never silent."""
+        row = {"ts": time.time(), "id": image_id,
+               "from": sorted(before), "to": sorted(after),
+               "reason": reason, "confirmed": bool(confirmed),
+               "dataset_revision": self.manifest.get("dataset_revision", 0) + 1}
+        with open(self.membership_log, "a", encoding="utf-8") as f:
+            f.write(json.dumps(row, sort_keys=True) + "\n")
+        return row
+
+    def set_membership(self, image_id: str, datasets: list, *,
+                       reason: str = "", confirm: bool = False) -> dict:
+        """Change an image's purpose sets, enforcing the held-out lock.
+
+        Touching the held-out evaluation set (adding to it, moving an image
+        out of it, or removing it) requires an explicit `confirm=True` and a
+        non-empty `reason`; otherwise this raises `HoldoutLocked`. Every
+        change is written to membership_log.jsonl and bumps the revision, so
+        the history of any evaluation set is reconstructable.
+        """
         e = self.entry(image_id)
         if not e:
             raise LibraryError(f"unknown image id {image_id}")
-        e["datasets"] = sorted(set(datasets))
+        before = list(e.get("datasets", []))
+        after = sorted(set(datasets))
+        unknown = [p for p in after if p not in PURPOSES]
+        if unknown:
+            raise LibraryError(f"unknown dataset purpose(s) {unknown}; "
+                               f"valid: {list(PURPOSES)}")
+        if after == sorted(before):
+            return {"changed": False, "id": image_id, "datasets": after}
+        touches_locked = (LOCKED_PURPOSE in before) or (LOCKED_PURPOSE in after)
+        if touches_locked and not (confirm and reason.strip()):
+            raise HoldoutLocked(
+                f"{image_id}: changing membership of the held-out evaluation "
+                f"set requires confirm=True and a written reason "
+                f"({before} -> {after})")
+        e["datasets"] = after
+        self._log_membership(image_id, before, after, reason.strip(), confirm)
         self.save_manifest(bump_revision=True)  # dataset revision history
+        return {"changed": True, "id": image_id, "from": sorted(before),
+                "to": after, "reason": reason.strip()}
+
+    def assign_set(self, image_id: str, purpose: str, *, reason: str = "",
+                   confirm: bool = False) -> dict:
+        """Assign ONE purpose set, replacing current membership."""
+        if purpose not in PURPOSES:
+            raise LibraryError(f"unknown purpose {purpose!r}; valid: {list(PURPOSES)}")
+        return self.set_membership(image_id, [purpose], reason=reason,
+                                   confirm=confirm)
+
+    def membership_log_rows(self) -> list:
+        if not self.membership_log.is_file():
+            return []
+        rows = []
+        for line in self.membership_log.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                try:
+                    rows.append(json.loads(line))
+                except json.JSONDecodeError:
+                    continue
+        return rows
 
     def start_set(self, which: str) -> dict:
         """Build quick/full/stress sets from the current library content.
@@ -547,8 +884,12 @@ class ImageLibrary:
         return plan | {"applied": True}
 
     def _diverse_select(self, wanted_tags, count: int) -> list:
-        """Pick diverse images by measured properties (not first-N)."""
-        rows = [e for e in self.manifest["images"] if self.file_path(e)]
+        """Pick diverse images by measured properties (not first-N).
+
+        Held-out members are excluded: quick/full/stress sets must never
+        silently pull an image out of the locked evaluation set."""
+        rows = [e for e in self.manifest["images"]
+                if self.file_path(e) and LOCKED_PURPOSE not in e.get("datasets", [])]
         if wanted_tags:
             tagged = [e for e in rows
                       if set(e.get("analysis", {}).get("capability_tags", []))
@@ -594,14 +935,26 @@ class ImageLibrary:
     def revisions(self) -> list:
         return sorted(self.rev_dir.glob("rev-*.json"))
 
-    def remove_dataset(self, dataset: str) -> list:
+    def remove_dataset(self, dataset: str, *, confirm: bool = False,
+                       reason: str = "") -> list:
         """Drop every image whose membership includes `dataset` (files AND
         manifest entries). Experiment history lives elsewhere — lab/
-        breeder checkpoints and champions are never touched."""
+        breeder checkpoints and champions are never touched.
+
+        Deleting the held-out evaluation set is a membership change of the
+        locked set: it requires `confirm=True` and a written reason and is
+        journalled before the files are removed."""
+        if dataset == LOCKED_PURPOSE:
+            if not (confirm and reason.strip()):
+                raise HoldoutLocked(
+                    "removing the held-out evaluation set requires "
+                    "confirm=True and a written reason")
         keep, removed = [], []
+        previous: dict = {}
         for e in self.manifest["images"]:
             if dataset in e.get("datasets", []):
                 removed.append(e["id"])
+                previous[e["id"]] = list(e.get("datasets", []))
                 try:
                     Path(self.file_path(e) or "").unlink()
                 except OSError:
@@ -610,25 +963,58 @@ class ImageLibrary:
                 keep.append(e)
         self.manifest["images"] = keep
         if removed:
+            for iid in removed:
+                self._log_membership(iid, previous.get(iid, []), [],
+                                     reason.strip() or f"removed set {dataset}",
+                                     confirm)
             self.save_manifest(bump_revision=True)
         return removed
 
     def export_manifest(self) -> dict:
         """Portable dataset manifest: relative file names only, plus a fresh
-        integrity result so the receiving side knows what to expect."""
+        integrity result and a content digest so the receiving side can verify
+        it offline without the sender."""
         v = self.verify()
+        sets: dict = {p: 0 for p in PURPOSES}
+        for e in self.manifest["images"]:
+            for p in e.get("datasets", []):
+                sets[p] = sets.get(p, 0) + 1
         return {"format": "firefly-dataset-manifest/1",
                 "exported": time.time(),
                 "dataset_revision": self.manifest.get("dataset_revision", 0),
+                "manifest_digest": self.manifest_digest(),
+                "policy": self.policy.to_dict(),
+                "set_counts": sets,
                 "integrity": {"verified": v["verified"], "problems": v["problems"]},
                 "count": len(self.manifest["images"]),
                 "images": self.manifest["images"]}
 
-    def import_manifest(self, entries: list) -> dict:
+    @staticmethod
+    def _safe_entry_name(name) -> str | None:
+        """Bare filename inside the library dir; rejects traversal/absolute
+        paths, drive letters and nested names from foreign manifests."""
+        text = str(name or "")
+        if not text or text in (".", ".."):
+            return None
+        if any(sep in text for sep in ("/", "\\")) or ":" in text:
+            return None
+        p = Path(text)
+        if p.is_absolute() or p.name != text:
+            return None
+        return text
+
+    def import_manifest(self, entries: list, *, confirm: bool = False,
+                        reason: str = "") -> dict:
         """Merge a dataset manifest conservatively: entries are restored only
         when the image file already sits in this library dir with a matching
-        sha256; entries without files are reported, never silently dropped."""
+        sha256; entries without files are reported, never silently dropped.
+
+        Foreign paths and traversal names are rejected outright. Entries
+        claiming held-out membership need explicit confirmation; nothing is
+        promoted between sets silently.
+        """
         added, skipped, missing_files = 0, [], []
+        rejected, locked_refused = [], []
         known = set(self.ids())
         for e in entries or []:
             if not isinstance(e, dict) or not e.get("id"):
@@ -636,19 +1022,150 @@ class ImageLibrary:
             if e["id"] in known:
                 skipped.append(e["id"])
                 continue
-            f = self.dir / str(e.get("file_name", ""))
+            name = self._safe_entry_name(e.get("file_name"))
+            if name is None:
+                rejected.append({"id": e["id"], "reason": "unsafe file_name"})
+                continue
+            f = self.dir / name
             if not f.is_file() or _sha256(f) != e.get("sha256"):
                 missing_files.append(e["id"])
+                continue
+            sets = sorted(set(x for x in (e.get("datasets") or ["dev"])
+                              if x in PURPOSES))
+            if LOCKED_PURPOSE in sets and not (confirm and reason.strip()):
+                locked_refused.append(e["id"])
                 continue
             # re-anchor the entry to THIS library (never trust a foreign path)
             e["file_name"] = f.name
             e["path"] = str(f.resolve())
+            e["datasets"] = sets or ["dev"]
+            if not e.get("analysis"):
+                e["analysis"] = analyze_image(str(f), palette_arr=palette_rgb(),
+                                              policy=self.policy)
             self.manifest["images"].append(e)
             known.add(e["id"])
+            if LOCKED_PURPOSE in sets:
+                self._log_membership(e["id"], [], set(e["datasets"]),
+                                     reason.strip() or "explicit import", confirm)
             added += 1
         if added:
             self.save_manifest(bump_revision=True)
-        return {"added": added, "skipped": skipped, "missing_files": missing_files}
+        return {"added": added, "skipped": skipped, "missing_files": missing_files,
+                "rejected": rejected, "holdout_requires_confirmation": locked_refused}
+
+    # ---------------- thumbnails ----------------
+    def thumbnail(self, entry_or_id, max_px: int | None = None) -> str:
+        """Return a cached thumbnail path, generating it only when missing or
+        older than the source file. Thumbnails live beside the library so a
+        rerun never re-decodes full images to draw a grid."""
+        e = entry_or_id if isinstance(entry_or_id, dict) else self.entry(str(entry_or_id))
+        if not e:
+            raise LibraryError(f"unknown image id {entry_or_id}")
+        src = self.file_path(e)
+        if not src or not Path(src).is_file():
+            raise LibraryError(f"source file missing for {e.get('id')}")
+        px = int(max_px or self.policy.thumb_px)
+        out = self.thumbs_dir / f"{e['id']}_{px}.jpg"
+        if out.is_file() and out.stat().st_mtime >= Path(src).stat().st_mtime:
+            return str(out)
+        from PIL import Image
+        with Image.open(src) as im:
+            im = im.convert("RGB")
+            im.thumbnail((px, px))
+            tmp = out.with_suffix(".tmp.jpg")
+            im.save(tmp, format="JPEG", quality=82, optimize=False)
+        os.replace(tmp, out)
+        return str(out)
+
+    def thumbnail_stats(self) -> dict:
+        files = list(self.thumbs_dir.glob("*.jpg"))
+        total = 0
+        for f in files:
+            try:
+                total += f.stat().st_size
+            except OSError:
+                pass
+        return {"count": len(files), "bytes": total,
+                "dir": str(self.thumbs_dir)}
+
+    # ---------------- resumable folder import ----------------
+    def import_paths(self, paths, datasets: list | None = None,
+                     source_label: str = "local-user-folder",
+                     journal: Path | None = None) -> dict:
+        """Import many local files with a checkpoint journal.
+
+        The journal records each completed source path after its file is
+        safely in the library, so an interrupted run resumes where it stopped
+        instead of re-copying or double-adding. Journal writes are atomic.
+        """
+        jpath = Path(journal) if journal else self.import_journal
+        state = {"started": time.time(), "done": {}, "dataset": datasets or ["dev"]}
+        if jpath.is_file():
+            try:
+                loaded = json.loads(jpath.read_text(encoding="utf-8"))
+                if isinstance(loaded, dict) and isinstance(loaded.get("done"), dict):
+                    state.update(loaded)
+            except (json.JSONDecodeError, OSError):
+                pass  # corrupt journal -> start over; files dedupe by hash
+        added, skipped, errors, resumed = [], [], [], 0
+        for raw in paths:
+            key = str(Path(raw))
+            if key in state["done"]:
+                eid = state["done"][key]
+                if self.entry(str(eid)):
+                    resumed += 1
+                    skipped.append(str(eid))
+                    continue
+            try:
+                entry = self.add_local(raw, source_label=source_label,
+                                       datasets=datasets)
+            except (LibraryError, OSError) as ex:
+                errors.append({"path": key, "error": f"{type(ex).__name__}: {ex}"})
+                continue
+            eid = entry.get("duplicate_of") or entry["id"]
+            state["done"][key] = eid
+            tmp = jpath.with_suffix(".tmp")
+            tmp.write_text(json.dumps(state, indent=1), encoding="utf-8")
+            os.replace(tmp, jpath)
+            if entry.get("duplicate_of"):
+                skipped.append(str(eid))
+            else:
+                added.append(str(eid))
+        return {"added": added, "skipped": skipped, "errors": errors,
+                "resumed": resumed, "journal": str(jpath),
+                "remaining": [str(p) for p in paths if str(Path(p)) not in state["done"]]}
+
+    # ---------------- analysis refresh ----------------
+    def analysis_status(self) -> dict:
+        stale = [e["id"] for e in self.manifest["images"]
+                 if int((e.get("analysis") or {}).get("analysis_version", 0))
+                 < ANALYSIS_VERSION]
+        return {"current_version": ANALYSIS_VERSION, "stale": stale,
+                "stale_count": len(stale),
+                "total": len(self.manifest["images"])}
+
+    def refresh_analysis(self, only_stale: bool = True) -> dict:
+        """Recompute deterministic characteristics in place (versioned)."""
+        updated, failed = 0, []
+        pal_arr = palette_rgb()
+        for e in self.manifest["images"]:
+            if only_stale and int((e.get("analysis") or {})
+                                  .get("analysis_version", 0)) >= ANALYSIS_VERSION:
+                continue
+            p = self.file_path(e)
+            if not p:
+                failed.append({"id": e["id"], "error": "missing file"})
+                continue
+            try:
+                e["analysis"] = analyze_image(p, palette_arr=pal_arr,
+                                              policy=self.policy)
+                updated += 1
+            except LibraryError as ex:
+                failed.append({"id": e["id"], "error": str(ex)})
+        if updated:
+            self.save_manifest(bump_revision=False)
+        return {"updated": updated, "failed": failed,
+                "analysis_version": ANALYSIS_VERSION}
 
     def compare_revisions(self, a: int, b: int) -> dict:
         def load(n):
@@ -678,6 +1195,25 @@ class ImageLibrary:
 
     def free_space_mb(self) -> int:
         return disk_free_mb(self.dir)
+
+
+def _canonical_entry(entry: dict) -> dict:
+    """Entry with machine-specific path and observation time removed, so the
+    same dataset exported on two machines has the same digest."""
+    e = {k: v for k, v in entry.items() if k != "path"}
+    analysis = dict(e.get("analysis") or {})
+    analysis.pop("analyzed", None)
+    e["analysis"] = analysis
+    return e
+
+
+def manifest_content_digest(images, dataset_revision) -> str:
+    """Portable content address over sorted canonical entries + revision."""
+    canon = sorted((_canonical_entry(e) for e in images if isinstance(e, dict)),
+                   key=lambda e: str(e.get("id", "")))
+    blob = {"dataset_revision": int(dataset_revision or 0), "images": canon}
+    return hashlib.sha256(json.dumps(blob, sort_keys=True, default=str)
+                          .encode("utf-8")).hexdigest()
 
 
 def disk_free_mb(path) -> int:
