@@ -71,12 +71,21 @@ python tools/rebuild_dataset.py --data-dir mapart-data     # explicit download+s
 python tools/acceptance_offline.py                          # full offline run under a hard network guard
 ```
 
+Asset QA tooling (offline; see `docs/asset_quality_milestone.md`):
+```
+python tools/asset_health.py --data-dir mapart-data --out docs/asset_health_report.md
+python tools/verify_manifest.py --library mapart-data
+python tools/dataset_sets.py list            # dev / validation / holdout / stress
+python tools/dataset_sets.py assign --id img_x --set holdout --confirm --reason "..."
+```
+
 Key test batteries:
 ```
 python tests/test_breeding.py      # breeding spec (12 mandated checks) — 39 checks
 python tests/test_gui_runtime.py   # desktop runtime + datasets + planner — 20 checks
 python tests/test_engine.py
 python tests/test_tools.py
+python tests/test_assets.py        # asset catalog, sets, limits, offline checks — 14 checks
 ```
 
 Details: `docs/feature_report.md` (implementation status + limitations),

@@ -1,5 +1,11 @@
 # Dataset library + offline acceptance report (spec §1–§3, §7)
 
+> Extended by the asset-quality milestone: searchable SQLite catalog,
+> deterministic characteristics, benchmark provenance history, explicit
+> validation split, held-out locking, storage/parse hardening and the
+> asset-health report. See `docs/asset_quality_milestone.md` and
+> `docs/asset_health_report.md`.
+
 Everything below was measured in this workspace; commands and exit codes come
 from real runs (see `acceptance_run/report.json` and `bat_*.log`).
 Honest-status vocabulary throughout: VERIFIED means an automated check ran
