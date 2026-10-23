@@ -53,7 +53,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -107,7 +107,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -133,7 +133,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -187,7 +187,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -198,7 +198,7 @@
       "survival": null,
       "verification": {
         "checked_against": null,
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "added in recent snapshot content; pipeline does not reference it; unverified offline",
         "status": "UNRESOLVED"
       }
@@ -209,7 +209,7 @@
       "survival": null,
       "verification": {
         "checked_against": null,
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "not in any included palette asset; name matches mod blocks (e.g. Create), vanilla existence not verifiable offline",
         "status": "UNRESOLVED"
       }
@@ -220,7 +220,7 @@
       "survival": null,
       "verification": {
         "checked_against": null,
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "same basis: not in palette data; no offline registry confirms it",
         "status": "UNRESOLVED"
       }
@@ -231,7 +231,7 @@
       "survival": null,
       "verification": {
         "checked_against": null,
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "a 1.21.4-era plant block; not referenced by the roadmap palette; version-specific properties unverified offline",
         "status": "UNRESOLVED"
       }
@@ -271,7 +271,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -297,7 +297,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -308,7 +308,7 @@
       "survival": null,
       "verification": {
         "checked_against": null,
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "added in recent snapshot content; pipeline does not reference it; unverified offline",
         "status": "UNRESOLVED"
       }
@@ -334,7 +334,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -374,7 +374,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -414,7 +414,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -440,7 +440,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -508,7 +508,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -534,7 +534,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -588,7 +588,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -642,7 +642,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -682,7 +682,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -708,7 +708,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -734,7 +734,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -802,7 +802,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -856,7 +856,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -910,7 +910,7 @@
       "survival": false,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -950,7 +950,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -990,7 +990,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -1044,7 +1044,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -1154,7 +1154,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -1180,7 +1180,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -1206,7 +1206,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -1288,7 +1288,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -1328,7 +1328,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -1382,7 +1382,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -1436,7 +1436,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -1447,7 +1447,7 @@
       "survival": null,
       "verification": {
         "checked_against": null,
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "added in recent snapshot content; pipeline does not reference it; unverified offline",
         "status": "UNRESOLVED"
       }
@@ -1473,7 +1473,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
@@ -1527,7 +1527,7 @@
       "survival": true,
       "verification": {
         "checked_against": "assets/mc_palettes.json@approximation",
-        "engine_sha": "b8ef44589d28",
+        "engine_sha": "3fc1e8f6c604",
         "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
         "status": "verified-in-palette"
       }
