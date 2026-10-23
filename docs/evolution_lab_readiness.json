@@ -1,0 +1,200 @@
+{
+  "sections": {
+    "baseline": {
+      "checks": [
+        {
+          "key": "test_engine_battery",
+          "status": "PASS",
+          "detail": "exit 0"
+        },
+        {
+          "key": "test_tools_battery",
+          "status": "PASS",
+          "detail": "exit 0"
+        }
+      ],
+      "counts": {
+        "pass": 2,
+        "fail": 0,
+        "other": 0
+      }
+    },
+    "integrity": {
+      "checks": [
+        {
+          "key": "checkpoint_persists",
+          "status": "PASS",
+          "detail": "state evaluated=6 cache=6"
+        },
+        {
+          "key": "restart_recovery",
+          "status": "PASS",
+          "detail": "restored evaluated=6"
+        },
+        {
+          "key": "interrupted_run_crash_record",
+          "status": "PASS",
+          "detail": "KeyError: 'no-such-item'"
+        }
+      ],
+      "counts": {
+        "pass": 3,
+        "fail": 0,
+        "other": 0
+      }
+    },
+    "isolation": {
+      "checks": [
+        {
+          "key": "invalid_settings_rejected",
+          "status": "PASS",
+          "detail": "Settings ValueError"
+        },
+        {
+          "key": "malformed_package_rejected",
+          "status": "PASS",
+          "detail": "foreign archive member rejected: 'payload.py'"
+        }
+      ],
+      "counts": {
+        "pass": 2,
+        "fail": 0,
+        "other": 0
+      }
+    },
+    "calibration": {
+      "checks": [
+        {
+          "key": "invalid_never_promoted",
+          "status": "PASS",
+          "detail": "weighted(valid=False) -> None; Lab promotes only score-bearing entries"
+        },
+        {
+          "key": "worse_offspring_rejected",
+          "status": "PASS",
+          "detail": "score bad 0.8200 > worse 0.7800 -> best stays"
+        },
+        {
+          "key": "cost_independent",
+          "status": "PASS",
+          "detail": "cost 0.02 vs 0.5, visual terms unchanged"
+        },
+        {
+          "key": "categorical_inheritance",
+          "status": "PASS",
+          "detail": "4 recombinations contain exactly parental alleles"
+        },
+        {
+          "key": "percentage_crossover",
+          "status": "NOT_APPLICABLE",
+          "detail": "engine implements per-key 50/50 categorical recombination; a continuous contribution-percentage crossover does not exist in this codebase and would be new work, not calibration"
+        },
+        {
+          "key": "pareto_ranking",
+          "status": "NOT_IMPLEMENTED",
+          "detail": "weighted scalar objective only; multi-objective metrics are reported independently, but Pareto nondomination ranking is not implemented"
+        },
+        {
+          "key": "metric_sensitivity",
+          "status": "PASS",
+          "detail": "oklab_error exact 0.0000, +40 shifted 0.0057"
+        }
+      ],
+      "counts": {
+        "pass": 5,
+        "fail": 0,
+        "other": 2
+      }
+    },
+    "rehearsal": {
+      "checks": [
+        {
+          "key": "small_experiment",
+          "status": "PASS",
+          "detail": "{\"evals\": 5, \"invalid\": 0, \"cache_hits\": 5, \"wall_s\": 0.3, \"best\": 0.917604}"
+        },
+        {
+          "key": "cancellation_latency",
+          "status": "PASS",
+          "detail": "stop() returned in 0.11s, worker stopped cleanly"
+        },
+        {
+          "key": "peak_parent_memory",
+          "status": "PASS",
+          "detail": "parent-process traced peak 0.0 MB (candidates are transient)"
+        }
+      ],
+      "counts": {
+        "pass": 3,
+        "fail": 0,
+        "other": 0
+      }
+    },
+    "workflow": {
+      "checks": [
+        {
+          "key": "1_synthetic_master",
+          "status": "PASS",
+          "detail": "sha 8928f4e26fa2 offline"
+        },
+        {
+          "key": "2_screening_benchmark",
+          "status": "PASS",
+          "detail": "72 combos evaluated, best per image: {'grad-smooth': 'sierra_lite|survival-wool-1.8|1.6|grad-smooth'}"
+        },
+        {
+          "key": "3-8_candidates_breed_promote",
+          "status": "PASS",
+          "detail": "lab best 0.9176 (bayer2)"
+        },
+        {
+          "key": "9_history_persisted",
+          "status": "PASS",
+          "detail": "4 rows in history.jsonl"
+        },
+        {
+          "key": "10_restart_recovery",
+          "status": "PASS",
+          "detail": "restored evaluated=4, cache=4"
+        },
+        {
+          "key": "11-12_reproduce_validate",
+          "status": "PASS",
+          "detail": "schem synthetic_master_128x128.schem; placed=16384; palette=13"
+        }
+      ],
+      "counts": {
+        "pass": 6,
+        "fail": 0,
+        "other": 0
+      }
+    }
+  },
+  "generated": "2026-10-21T04:22:54.044172+00:00",
+  "baseline": {
+    "engine_tree_sha16": "b7f41ffb5b9458e2",
+    "files": 32,
+    "deps": {
+      "python": "3.14.8",
+      "numpy": "2.5.4",
+      "Pillow": "12.3.0",
+      "nevergrad": "1.0.12 (optional backend, installed)"
+    },
+    "palettes": [
+      "map-full-approx-1.15",
+      "survival-wool-1.8"
+    ],
+    "note": "no git repo in this workspace folder"
+  },
+  "workflow_artifacts": {
+    "dir": "C:\\Users\\cmlog\\AppData\\Local\\Temp\\readiness_workflow_s78uz88f",
+    "kept": true
+  },
+  "artifacts_master": "C:\\Users\\cmlog\\AppData\\Local\\Temp\\readiness_workflow_s78uz88f\\master",
+  "totals": {
+    "pass": 21,
+    "fail": 0,
+    "other": 2
+  },
+  "gate": "CONDITIONAL"
+}

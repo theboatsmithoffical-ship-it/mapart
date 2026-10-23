@@ -1,0 +1,1536 @@
+{
+  "_meta": {
+    "format": "firefly-blocks-db-v1",
+    "pathway_note": "blocks.json is generated; edits belong in assets/mc_palettes.json or this tool's registry. Regeneration is deterministic; UNRESOLVED entries stay unresolved until authoritative version data is supplied. It is possible to re-check offline only when a trusted block registry is bundled."
+  },
+  "blocks": {
+    "minecraft:black_wool": {
+      "map_colors": [
+        {
+          "id": 36,
+          "rgb": [
+            34,
+            36,
+            33
+          ],
+          "shade_basis": [
+            34,
+            36,
+            33
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 43,
+          "rgb": [
+            31,
+            33,
+            31
+          ],
+          "shade_basis": [
+            31,
+            33,
+            31
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 16,
+          "rgb": [
+            34,
+            36,
+            33
+          ],
+          "shade_basis": [
+            34,
+            36,
+            33
+          ],
+          "version": "survival-wool-1.8"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:blue_wool": {
+      "map_colors": [
+        {
+          "id": 32,
+          "rgb": [
+            63,
+            63,
+            136
+          ],
+          "shade_basis": [
+            63,
+            63,
+            136
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 40,
+          "rgb": [
+            56,
+            71,
+            132
+          ],
+          "shade_basis": [
+            56,
+            71,
+            132
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 12,
+          "rgb": [
+            63,
+            63,
+            136
+          ],
+          "shade_basis": [
+            63,
+            63,
+            136
+          ],
+          "version": "survival-wool-1.8"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:brown_terracotta": {
+      "map_colors": [
+        {
+          "id": 44,
+          "rgb": [
+            128,
+            51,
+            45
+          ],
+          "shade_basis": [
+            128,
+            51,
+            45
+          ],
+          "version": "map-full-approx-1.15"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:brown_wool": {
+      "map_colors": [
+        {
+          "id": 15,
+          "rgb": [
+            90,
+            59,
+            62
+          ],
+          "shade_basis": [
+            90,
+            59,
+            62
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 33,
+          "rgb": [
+            117,
+            77,
+            44
+          ],
+          "shade_basis": [
+            117,
+            77,
+            44
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 13,
+          "rgb": [
+            117,
+            77,
+            44
+          ],
+          "shade_basis": [
+            117,
+            77,
+            44
+          ],
+          "version": "survival-wool-1.8"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:bush": {
+      "map_colors": [],
+      "pipeline_role": "none — unresolved; excluded from palettes",
+      "survival": null,
+      "verification": {
+        "checked_against": null,
+        "engine_sha": "b8ef44589d28",
+        "note": "added in recent snapshot content; pipeline does not reference it; unverified offline",
+        "status": "UNRESOLVED"
+      }
+    },
+    "minecraft:cinnabar": {
+      "map_colors": [],
+      "pipeline_role": "none — unresolved; excluded from palettes",
+      "survival": null,
+      "verification": {
+        "checked_against": null,
+        "engine_sha": "b8ef44589d28",
+        "note": "not in any included palette asset; name matches mod blocks (e.g. Create), vanilla existence not verifiable offline",
+        "status": "UNRESOLVED"
+      }
+    },
+    "minecraft:cinnabar_bricks": {
+      "map_colors": [],
+      "pipeline_role": "none — unresolved; excluded from palettes",
+      "survival": null,
+      "verification": {
+        "checked_against": null,
+        "engine_sha": "b8ef44589d28",
+        "note": "same basis: not in palette data; no offline registry confirms it",
+        "status": "UNRESOLVED"
+      }
+    },
+    "minecraft:closed_eyeblossom": {
+      "map_colors": [],
+      "pipeline_role": "none — unresolved; excluded from palettes",
+      "survival": null,
+      "verification": {
+        "checked_against": null,
+        "engine_sha": "b8ef44589d28",
+        "note": "a 1.21.4-era plant block; not referenced by the roadmap palette; version-specific properties unverified offline",
+        "status": "UNRESOLVED"
+      }
+    },
+    "minecraft:cyan_wool": {
+      "map_colors": [
+        {
+          "id": 30,
+          "rgb": [
+            46,
+            123,
+            139
+          ],
+          "shade_basis": [
+            46,
+            123,
+            139
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 10,
+          "rgb": [
+            46,
+            123,
+            139
+          ],
+          "shade_basis": [
+            46,
+            123,
+            139
+          ],
+          "version": "survival-wool-1.8"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:end_stone": {
+      "map_colors": [
+        {
+          "id": 7,
+          "rgb": [
+            250,
+            243,
+            180
+          ],
+          "shade_basis": [
+            250,
+            243,
+            180
+          ],
+          "version": "map-full-approx-1.15"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:firefly_bush": {
+      "map_colors": [],
+      "pipeline_role": "none — unresolved; excluded from palettes",
+      "survival": null,
+      "verification": {
+        "checked_against": null,
+        "engine_sha": "b8ef44589d28",
+        "note": "added in recent snapshot content; pipeline does not reference it; unverified offline",
+        "status": "UNRESOLVED"
+      }
+    },
+    "minecraft:gray_terracotta": {
+      "map_colors": [
+        {
+          "id": 9,
+          "rgb": [
+            160,
+            89,
+            80
+          ],
+          "shade_basis": [
+            160,
+            89,
+            80
+          ],
+          "version": "map-full-approx-1.15"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:gray_wool": {
+      "map_colors": [
+        {
+          "id": 28,
+          "rgb": [
+            103,
+            105,
+            110
+          ],
+          "shade_basis": [
+            103,
+            105,
+            110
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 8,
+          "rgb": [
+            103,
+            105,
+            110
+          ],
+          "shade_basis": [
+            103,
+            105,
+            110
+          ],
+          "version": "survival-wool-1.8"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:green_wool": {
+      "map_colors": [
+        {
+          "id": 34,
+          "rgb": [
+            85,
+            115,
+            47
+          ],
+          "shade_basis": [
+            85,
+            115,
+            47
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 14,
+          "rgb": [
+            85,
+            115,
+            47
+          ],
+          "shade_basis": [
+            85,
+            115,
+            47
+          ],
+          "version": "survival-wool-1.8"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:light_blue_terracotta": {
+      "map_colors": [
+        {
+          "id": 17,
+          "rgb": [
+            93,
+            229,
+            251
+          ],
+          "shade_basis": [
+            93,
+            229,
+            251
+          ],
+          "version": "map-full-approx-1.15"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:light_blue_wool": {
+      "map_colors": [
+        {
+          "id": 5,
+          "rgb": [
+            160,
+            160,
+            255
+          ],
+          "shade_basis": [
+            160,
+            160,
+            255
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 16,
+          "rgb": [
+            110,
+            224,
+            224
+          ],
+          "shade_basis": [
+            110,
+            224,
+            224
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 24,
+          "rgb": [
+            121,
+            130,
+            224
+          ],
+          "shade_basis": [
+            121,
+            130,
+            224
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 4,
+          "rgb": [
+            121,
+            130,
+            224
+          ],
+          "shade_basis": [
+            121,
+            130,
+            224
+          ],
+          "version": "survival-wool-1.8"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:light_gray_terracotta": {
+      "map_colors": [
+        {
+          "id": 12,
+          "rgb": [
+            105,
+            118,
+            127
+          ],
+          "shade_basis": [
+            105,
+            118,
+            127
+          ],
+          "version": "map-full-approx-1.15"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:light_gray_wool": {
+      "map_colors": [
+        {
+          "id": 3,
+          "rgb": [
+            199,
+            199,
+            199
+          ],
+          "shade_basis": [
+            199,
+            199,
+            199
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 29,
+          "rgb": [
+            149,
+            150,
+            153
+          ],
+          "shade_basis": [
+            149,
+            150,
+            153
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 9,
+          "rgb": [
+            149,
+            150,
+            153
+          ],
+          "shade_basis": [
+            149,
+            150,
+            153
+          ],
+          "version": "survival-wool-1.8"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:lime_wool": {
+      "map_colors": [
+        {
+          "id": 6,
+          "rgb": [
+            105,
+            198,
+            84
+          ],
+          "shade_basis": [
+            105,
+            198,
+            84
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 26,
+          "rgb": [
+            110,
+            186,
+            66
+          ],
+          "shade_basis": [
+            110,
+            186,
+            66
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 6,
+          "rgb": [
+            110,
+            186,
+            66
+          ],
+          "shade_basis": [
+            110,
+            186,
+            66
+          ],
+          "version": "survival-wool-1.8"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:magenta_wool": {
+      "map_colors": [
+        {
+          "id": 23,
+          "rgb": [
+            219,
+            111,
+            183
+          ],
+          "shade_basis": [
+            219,
+            111,
+            183
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 3,
+          "rgb": [
+            219,
+            111,
+            183
+          ],
+          "shade_basis": [
+            219,
+            111,
+            183
+          ],
+          "version": "survival-wool-1.8"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:oak_leaves": {
+      "map_colors": [
+        {
+          "id": 1,
+          "rgb": [
+            127,
+            178,
+            56
+          ],
+          "shade_basis": [
+            127,
+            178,
+            56
+          ],
+          "version": "map-full-approx-1.15"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:obsidian": {
+      "map_colors": [
+        {
+          "id": 60,
+          "rgb": [
+            29,
+            29,
+            33
+          ],
+          "shade_basis": [
+            29,
+            29,
+            33
+          ],
+          "version": "map-full-approx-1.15"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:orange_terracotta": {
+      "map_colors": [
+        {
+          "id": 14,
+          "rgb": [
+            186,
+            122,
+            105
+          ],
+          "shade_basis": [
+            186,
+            122,
+            105
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 38,
+          "rgb": [
+            219,
+            163,
+            84
+          ],
+          "shade_basis": [
+            219,
+            163,
+            84
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 48,
+          "rgb": [
+            255,
+            177,
+            89
+          ],
+          "shade_basis": [
+            255,
+            177,
+            89
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 54,
+          "rgb": [
+            155,
+            98,
+            74
+          ],
+          "shade_basis": [
+            155,
+            98,
+            74
+          ],
+          "version": "map-full-approx-1.15"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:orange_wool": {
+      "map_colors": [
+        {
+          "id": 19,
+          "rgb": [
+            201,
+            139,
+            102
+          ],
+          "shade_basis": [
+            201,
+            139,
+            102
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 22,
+          "rgb": [
+            218,
+            129,
+            66
+          ],
+          "shade_basis": [
+            218,
+            129,
+            66
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 2,
+          "rgb": [
+            218,
+            129,
+            66
+          ],
+          "shade_basis": [
+            218,
+            129,
+            66
+          ],
+          "version": "survival-wool-1.8"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:pink_wool": {
+      "map_colors": [
+        {
+          "id": 13,
+          "rgb": [
+            250,
+            174,
+            183
+          ],
+          "shade_basis": [
+            250,
+            174,
+            183
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 27,
+          "rgb": [
+            239,
+            127,
+            146
+          ],
+          "shade_basis": [
+            239,
+            127,
+            146
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 7,
+          "rgb": [
+            239,
+            127,
+            146
+          ],
+          "shade_basis": [
+            239,
+            127,
+            146
+          ],
+          "version": "survival-wool-1.8"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": false,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:purple_wool": {
+      "map_colors": [
+        {
+          "id": 31,
+          "rgb": [
+            131,
+            73,
+            157
+          ],
+          "shade_basis": [
+            131,
+            73,
+            157
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 11,
+          "rgb": [
+            131,
+            73,
+            157
+          ],
+          "shade_basis": [
+            131,
+            73,
+            157
+          ],
+          "version": "survival-wool-1.8"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:red_sand": {
+      "map_colors": [
+        {
+          "id": 18,
+          "rgb": [
+            140,
+            224,
+            231
+          ],
+          "shade_basis": [
+            140,
+            224,
+            231
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 20,
+          "rgb": [
+            255,
+            181,
+            170
+          ],
+          "shade_basis": [
+            255,
+            181,
+            170
+          ],
+          "version": "map-full-approx-1.15"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:red_terracotta": {
+      "map_colors": [
+        {
+          "id": 46,
+          "rgb": [
+            171,
+            102,
+            84
+          ],
+          "shade_basis": [
+            171,
+            102,
+            84
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 47,
+          "rgb": [
+            143,
+            56,
+            50
+          ],
+          "shade_basis": [
+            143,
+            56,
+            50
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 49,
+          "rgb": [
+            190,
+            107,
+            87
+          ],
+          "shade_basis": [
+            190,
+            107,
+            87
+          ],
+          "version": "map-full-approx-1.15"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:red_wool": {
+      "map_colors": [
+        {
+          "id": 4,
+          "rgb": [
+            255,
+            0,
+            0
+          ],
+          "shade_basis": [
+            255,
+            0,
+            0
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 21,
+          "rgb": [
+            198,
+            34,
+            59
+          ],
+          "shade_basis": [
+            198,
+            34,
+            59
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 35,
+          "rgb": [
+            171,
+            52,
+            47
+          ],
+          "shade_basis": [
+            171,
+            52,
+            47
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 56,
+          "rgb": [
+            188,
+            45,
+            62
+          ],
+          "shade_basis": [
+            188,
+            45,
+            62
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 57,
+          "rgb": [
+            153,
+            34,
+            50
+          ],
+          "shade_basis": [
+            153,
+            34,
+            50
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 61,
+          "rgb": [
+            155,
+            50,
+            63
+          ],
+          "shade_basis": [
+            155,
+            50,
+            63
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 15,
+          "rgb": [
+            171,
+            52,
+            47
+          ],
+          "shade_basis": [
+            171,
+            52,
+            47
+          ],
+          "version": "survival-wool-1.8"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:sand": {
+      "map_colors": [
+        {
+          "id": 2,
+          "rgb": [
+            247,
+            233,
+            163
+          ],
+          "shade_basis": [
+            247,
+            233,
+            163
+          ],
+          "version": "map-full-approx-1.15"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:stone": {
+      "map_colors": [
+        {
+          "id": 11,
+          "rgb": [
+            137,
+            136,
+            135
+          ],
+          "shade_basis": [
+            137,
+            136,
+            135
+          ],
+          "version": "map-full-approx-1.15"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:terracotta": {
+      "map_colors": [
+        {
+          "id": 39,
+          "rgb": [
+            128,
+            79,
+            62
+          ],
+          "shade_basis": [
+            128,
+            79,
+            62
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 41,
+          "rgb": [
+            144,
+            87,
+            62
+          ],
+          "shade_basis": [
+            144,
+            87,
+            62
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 42,
+          "rgb": [
+            126,
+            75,
+            55
+          ],
+          "shade_basis": [
+            126,
+            75,
+            55
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 50,
+          "rgb": [
+            141,
+            81,
+            62
+          ],
+          "shade_basis": [
+            141,
+            81,
+            62
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 51,
+          "rgb": [
+            100,
+            61,
+            46
+          ],
+          "shade_basis": [
+            100,
+            61,
+            46
+          ],
+          "version": "map-full-approx-1.15"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:warped_wart_block": {
+      "map_colors": [
+        {
+          "id": 58,
+          "rgb": [
+            115,
+            179,
+            151
+          ],
+          "shade_basis": [
+            115,
+            179,
+            151
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 59,
+          "rgb": [
+            89,
+            129,
+            118
+          ],
+          "shade_basis": [
+            89,
+            129,
+            118
+          ],
+          "version": "map-full-approx-1.15"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:white_terracotta": {
+      "map_colors": [
+        {
+          "id": 10,
+          "rgb": [
+            227,
+            207,
+            207
+          ],
+          "shade_basis": [
+            227,
+            207,
+            207
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 52,
+          "rgb": [
+            211,
+            146,
+            110
+          ],
+          "shade_basis": [
+            211,
+            146,
+            110
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 55,
+          "rgb": [
+            248,
+            213,
+            190
+          ],
+          "shade_basis": [
+            248,
+            213,
+            190
+          ],
+          "version": "map-full-approx-1.15"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:white_wool": {
+      "map_colors": [
+        {
+          "id": 8,
+          "rgb": [
+            255,
+            252,
+            245
+          ],
+          "shade_basis": [
+            255,
+            252,
+            245
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 45,
+          "rgb": [
+            248,
+            237,
+            233
+          ],
+          "shade_basis": [
+            248,
+            237,
+            233
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 1,
+          "rgb": [
+            221,
+            221,
+            221
+          ],
+          "shade_basis": [
+            221,
+            221,
+            221
+          ],
+          "version": "survival-wool-1.8"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:wildflowers": {
+      "map_colors": [],
+      "pipeline_role": "none — unresolved; excluded from palettes",
+      "survival": null,
+      "verification": {
+        "checked_against": null,
+        "engine_sha": "b8ef44589d28",
+        "note": "added in recent snapshot content; pipeline does not reference it; unverified offline",
+        "status": "UNRESOLVED"
+      }
+    },
+    "minecraft:yellow_terracotta": {
+      "map_colors": [
+        {
+          "id": 53,
+          "rgb": [
+            255,
+            219,
+            133
+          ],
+          "shade_basis": [
+            255,
+            219,
+            133
+          ],
+          "version": "map-full-approx-1.15"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    },
+    "minecraft:yellow_wool": {
+      "map_colors": [
+        {
+          "id": 25,
+          "rgb": [
+            217,
+            185,
+            47
+          ],
+          "shade_basis": [
+            217,
+            185,
+            47
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 37,
+          "rgb": [
+            215,
+            190,
+            70
+          ],
+          "shade_basis": [
+            215,
+            190,
+            70
+          ],
+          "version": "map-full-approx-1.15"
+        },
+        {
+          "id": 5,
+          "rgb": [
+            217,
+            185,
+            47
+          ],
+          "shade_basis": [
+            217,
+            185,
+            47
+          ],
+          "version": "survival-wool-1.8"
+        }
+      ],
+      "pipeline_role": "palette-color candidate",
+      "survival": true,
+      "verification": {
+        "checked_against": "assets/mc_palettes.json@approximation",
+        "engine_sha": "b8ef44589d28",
+        "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+        "status": "verified-in-palette"
+      }
+    }
+  }
+}

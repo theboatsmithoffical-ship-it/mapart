@@ -1,0 +1,6 @@
+{"fixture_scores": {"demo_fixture": 902.986193}, "genome": {"algorithm": "atkinson", "bias": -22, "gamma": 0.9193, "mapping": "nearest", "serpentine": false, "strength": 1.1857}, "id": "db611ac89360a0fe", "score": 902.986193}
+{"fixture_scores": {"demo_fixture": 1017.733609}, "genome": {"algorithm": "atkinson", "bias": -22, "gamma": 0.8562, "mapping": "nearest", "serpentine": false, "strength": 1.1857}, "id": "5ddf3f92815ecbeb", "score": 1017.733609}
+{"fixture_scores": {"demo_fixture": 1017.733609}, "genome": {"algorithm": "atkinson", "bias": -22, "gamma": 0.8562, "mapping": "nearest", "serpentine": false, "strength": 1.1857}, "id": "5ddf3f92815ecbeb", "score": 1017.733609}
+{"fixture_scores": {"demo_fixture": 1142.91903}, "genome": {"algorithm": "sierra_lite", "bias": -23, "gamma": 0.9193, "mapping": "nearest", "serpentine": true, "strength": 1.058}, "id": "14b11b74da182681", "score": 1142.91903}
+{"fixture_scores": {"demo_fixture": 1331.277836}, "genome": {"algorithm": "jjn", "bias": -24, "gamma": 1.2835, "mapping": "nearest", "serpentine": true, "strength": 1.5141}, "id": "95f4b813a8285c37", "score": 1331.277836}
+{"fixture_scores": {"demo_fixture": 1183.119801}, "genome": {"algorithm": "atkinson", "bias": -22, "gamma": 0.9193, "mapping": "nearest", "serpentine": false, "strength": 1.478949}, "id": "7bf4ef596929d3a7", "score": 1183.119801}

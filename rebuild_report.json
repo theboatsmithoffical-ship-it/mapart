@@ -1,0 +1,144 @@
+{
+ "dataset_revision": 115,
+ "downloaded": [],
+ "duplicates": [
+  "img_4912b4f7dee9",
+  "img_b5c69934a05d",
+  "img_feabf3b8305f",
+  "img_99e5bc60e0f6",
+  "img_7ea122a9a5f6",
+  "img_1e4ebdc7b612",
+  "img_4772b1c9fad3",
+  "img_ddb8ce9e46ab",
+  "img_77b15c68b409",
+  "img_a9fab5e30913",
+  "img_7ff8c3b4d956",
+  "img_c5baa388e8b0",
+  "img_0674b6d5c907",
+  "img_ae6f97acfe9d",
+  "img_cc4058481522",
+  "img_4f4d31660453",
+  "img_7b7bd0aea088",
+  "img_fc61f0908096",
+  "img_b7a739efbf23",
+  "img_5289f697d956",
+  "img_9a83118df3bb",
+  "img_25a053df1ff4",
+  "img_0b07ec0518ed",
+  "img_57a9ffddd7df",
+  "img_a3d7751f67b6",
+  "img_6aef8a6e9bf1",
+  "img_cd0609248c96",
+  "img_2368009f47ea",
+  "img_e5b6cc843366",
+  "img_b5b2dff577be",
+  "img_204e0061735b",
+  "img_706b1db86632",
+  "img_e858a46c05a4"
+ ],
+ "elapsed_s": 70.1,
+ "errors": [],
+ "free_mb_before": 579522,
+ "holdout_ids": [
+  "img_cc4058481522",
+  "img_4f4d31660453",
+  "img_7b7bd0aea088",
+  "img_fc61f0908096",
+  "img_b7a739efbf23",
+  "img_5289f697d956",
+  "img_9a83118df3bb",
+  "img_25a053df1ff4",
+  "img_0b07ec0518ed"
+ ],
+ "library_disk_mb": 12,
+ "manifest_images": 33,
+ "offline_ready": true,
+ "ok": true,
+ "problems": [],
+ "purpose_counts": {
+  "dev": 10,
+  "holdout": 9,
+  "stress": 14
+ },
+ "queries": [
+  {
+   "candidates": 3,
+   "downloaded": 0,
+   "estimated_mb": 8,
+   "query": "mountain landscape photograph"
+  },
+  {
+   "candidates": 4,
+   "downloaded": 0,
+   "estimated_mb": 9,
+   "query": "city architecture building facade"
+  },
+  {
+   "candidates": 5,
+   "downloaded": 0,
+   "estimated_mb": 11,
+   "query": "red fox wildlife animal"
+  },
+  {
+   "candidates": 4,
+   "downloaded": 0,
+   "estimated_mb": 12,
+   "query": "flower plant macro"
+  },
+  {
+   "candidates": 2,
+   "downloaded": 0,
+   "estimated_mb": 8,
+   "query": "portrait photograph person"
+  },
+  {
+   "candidates": 5,
+   "downloaded": 0,
+   "estimated_mb": 1,
+   "query": "oil painting illustration art"
+  },
+  {
+   "candidates": 2,
+   "downloaded": 0,
+   "estimated_mb": 1,
+   "query": "smooth gradient abstract color"
+  },
+  {
+   "candidates": 2,
+   "downloaded": 0,
+   "estimated_mb": 6,
+   "query": "city skyline night exposure"
+  },
+  {
+   "candidates": 6,
+   "downloaded": 0,
+   "estimated_mb": 0,
+   "query": "pixel art sprite"
+  },
+  {
+   "candidates": 6,
+   "downloaded": 0,
+   "estimated_mb": 1,
+   "query": "texture pattern detail"
+  }
+ ],
+ "revisions_saved": 115,
+ "stress_ids": [
+  "img_4912b4f7dee9",
+  "img_b5c69934a05d",
+  "img_feabf3b8305f",
+  "img_99e5bc60e0f6",
+  "img_7ea122a9a5f6",
+  "img_1e4ebdc7b612",
+  "img_4772b1c9fad3",
+  "img_ddb8ce9e46ab",
+  "img_77b15c68b409",
+  "img_a9fab5e30913",
+  "img_7ff8c3b4d956",
+  "img_c5baa388e8b0",
+  "img_0674b6d5c907",
+  "img_ae6f97acfe9d"
+ ],
+ "synthetic_files": 14,
+ "verified": "33/33"
+}

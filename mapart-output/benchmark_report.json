@@ -1,0 +1,276 @@
+{
+  "summary": {
+    "version": "survival-wool-1.8",
+    "maps": [
+      1,
+      1
+    ],
+    "size_blocks": [
+      128,
+      128
+    ],
+    "map_pixels": 16384,
+    "algorithm": "floyd_steinberg",
+    "strength": 1.0,
+    "suppress": [],
+    "label": "artwork",
+    "metric": "rgb",
+    "construction": "frame",
+    "elapsed_s": 0.239
+  },
+  "counts": [
+    {
+      "item": "ltblue-wool",
+      "block": "minecraft:light_blue_wool",
+      "count": 2941
+    },
+    {
+      "item": "white-wool",
+      "block": "minecraft:white_wool",
+      "count": 2835
+    },
+    {
+      "item": "orange-wool",
+      "block": "minecraft:orange_wool",
+      "count": 1698
+    },
+    {
+      "item": "cyan-wool",
+      "block": "minecraft:cyan_wool",
+      "count": 1650
+    },
+    {
+      "item": "ltgray-wool",
+      "block": "minecraft:light_gray_wool",
+      "count": 1200
+    },
+    {
+      "item": "yellow-wool",
+      "block": "minecraft:yellow_wool",
+      "count": 1151
+    },
+    {
+      "item": "brown-wool",
+      "block": "minecraft:brown_wool",
+      "count": 987
+    },
+    {
+      "item": "blue-wool",
+      "block": "minecraft:blue_wool",
+      "count": 932
+    },
+    {
+      "item": "black-wool",
+      "block": "minecraft:black_wool",
+      "count": 871
+    },
+    {
+      "item": "pink-wool",
+      "block": "minecraft:pink_wool",
+      "count": 703
+    },
+    {
+      "item": "gray-wool",
+      "block": "minecraft:gray_wool",
+      "count": 586
+    },
+    {
+      "item": "green-wool",
+      "block": "minecraft:green_wool",
+      "count": 338
+    },
+    {
+      "item": "red-wool",
+      "block": "minecraft:red_wool",
+      "count": 184
+    },
+    {
+      "item": "lime-wool",
+      "block": "minecraft:lime_wool",
+      "count": 137
+    },
+    {
+      "item": "magenta-wool",
+      "block": "minecraft:magenta_wool",
+      "count": 97
+    },
+    {
+      "item": "purple-wool",
+      "block": "minecraft:purple_wool",
+      "count": 74
+    }
+  ],
+  "construction_counts": null,
+  "combos": {
+    "enabled": false
+  },
+  "resource_cost": {
+    "note": "sum(count * settings.block_costs) \u2014 cost table is user policy, not verified market data",
+    "total": 0.0
+  },
+  "frames": 1,
+  "construction": {
+    "model": "staircase heightmap solved against the render model",
+    "height": 118,
+    "height_min": 0,
+    "height_max": 117,
+    "feasible_pixels": 16384,
+    "infeasible_pixels": 0,
+    "feasible_pct": 100.0,
+    "intended_vs_realized_equal_pct": 100.0,
+    "boundary": "0.0 (literal source reading: no outside column loaded)",
+    "shade_rule": {
+      "arithmetic": "source-verified (MapColor.getMapColor, integer truncation)",
+      "shade_rule": "source-verified (ItemMap.updateMapData scan-derivative + parity)",
+      "reachable_shades": [
+        0,
+        1,
+        2
+      ],
+      "status": "source-verified",
+      "target_version": "1.8",
+      "sources": {
+        "mapcolor_1_8_9": "MCP-919 decompiled: net/minecraft/block/material/MapColor.java",
+        "itemmap_1_8_9": "MCP-919 decompiled: net/minecraft/item/ItemMap.java"
+      }
+    },
+    "honesty": "pixels marked infeasible cannot render their intended shade under the stated rule; the preview shows the REALIZED render, never the intended one"
+  },
+  "export": {
+    "schem": {
+      "path": "C:\\Users\\cmlog\\.config\\freebuff-desktop\\local-projects\\8de7a4bf-17b9-48b5-8aef-6692d286d0ee\\threads\\d81b46d0d26cc113e9095b6990760b48a4cee5a350a671f4609c774e419bd9ec\\mapart-output\\benchmark_128x128.schem",
+      "width": 128,
+      "height": 118,
+      "length": 128,
+      "palette": 17,
+      "volume": 1933312
+    }
+  },
+  "objective": {
+    "metric": "rgb",
+    "objective": "minimize predicted map-color error vs the processed source; per-pixel argmin over feasible (block, shade) candidates; dithering perturbs decisions within each map frame (strength scales the diffused error)",
+    "dither": {
+      "algorithm": "floyd_steinberg",
+      "strength": 1.0
+    },
+    "constraints": {
+      "suppressed_map_colors": [],
+      "excluded_blocks": [],
+      "unreachable_shade_codes": [
+        3
+      ],
+      "shade_rule_status": "source-verified"
+    },
+    "candidates_total": 64,
+    "candidates_allowed": 48,
+    "sample_pixels": 1024,
+    "chosen_error_mean": 2422.7764,
+    "chosen_error_p95": 8024.2998,
+    "chosen_error_max": 15288.0,
+    "optimal_error_mean": 1352.3447,
+    "dither_gap_mean": 1070.4316,
+    "optimal_choice_rate": 0.459,
+    "runner_up_margin_mean": 678.127,
+    "chosen_shade_histogram": {
+      "0": 235,
+      "1": 297,
+      "2": 492
+    },
+    "top_blocks": [
+      {
+        "block": "minecraft:light_blue_wool",
+        "count": 170
+      },
+      {
+        "block": "minecraft:white_wool",
+        "count": 158
+      },
+      {
+        "block": "minecraft:cyan_wool",
+        "count": 106
+      },
+      {
+        "block": "minecraft:orange_wool",
+        "count": 103
+      },
+      {
+        "block": "minecraft:light_gray_wool",
+        "count": 81
+      },
+      {
+        "block": "minecraft:yellow_wool",
+        "count": 75
+      },
+      {
+        "block": "minecraft:black_wool",
+        "count": 66
+      },
+      {
+        "block": "minecraft:blue_wool",
+        "count": 65
+      }
+    ],
+    "block_costs": {},
+    "honesty": "errors are predicted-color distances under the render model on a pixel sample; not in-game measured output"
+  },
+  "render_model": {
+    "model": "firefly-rendermodel/1",
+    "arithmetic": "channel_out = (channel_base * SHADE_FACTORS[shade]) // 255 (integer truncation, verbatim vanilla)",
+    "shade_factors": [
+      180,
+      220,
+      255,
+      135
+    ],
+    "shade_rule": "d2 = (h - h_prev) * 4/(scale_size+4) + ((x+z)&1 - 0.5)*0.4; d2 > 0.6 -> shade 2; d2 < -0.6 -> shade 0; else shade 1; chain resets per map column with boundary height",
+    "flat_terrain_shade": 1,
+    "unreachable_shade_codes": [
+      3
+    ],
+    "versions": {
+      "1.15.2": {
+        "arithmetic": "assumed identical to 1.8.9 (API docs still describe base color + brightness; update-method source NOT retrieved)",
+        "shade_rule": "ASSUMPTION \u2014 1.8.9 scan-derivative rule applied; no 1.15.2 update-method source could be verified",
+        "reachable_shades": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "reachable_shades_note": "unknown for this version \u2014 all shades kept eligible (shade 3 may also be unreachable, as in 1.8.9)",
+        "status": "unverified-assumption",
+        "target_version": "1.15.2",
+        "sources": {
+          "mapcolor_1_8_9": "MCP-919 decompiled: net/minecraft/block/material/MapColor.java",
+          "itemmap_1_8_9": "MCP-919 decompiled: net/minecraft/item/ItemMap.java"
+        }
+      },
+      "1.8": {
+        "arithmetic": "source-verified (MapColor.getMapColor, integer truncation)",
+        "shade_rule": "source-verified (ItemMap.updateMapData scan-derivative + parity)",
+        "reachable_shades": [
+          0,
+          1,
+          2
+        ],
+        "status": "source-verified",
+        "target_version": "1.8",
+        "sources": {
+          "mapcolor_1_8_9": "MCP-919 decompiled: net/minecraft/block/material/MapColor.java",
+          "itemmap_1_8_9": "MCP-919 decompiled: net/minecraft/item/ItemMap.java"
+        }
+      }
+    },
+    "sources": {
+      "mapcolor_1_8_9": "MCP-919 decompiled: net/minecraft/block/material/MapColor.java",
+      "itemmap_1_8_9": "MCP-919 decompiled: net/minecraft/item/ItemMap.java"
+    },
+    "honesty": "prediction accuracy equals the verification status of the target version; 1.8.9 arithmetic+rule are source-verified, 1.15.2 is a labeled assumption, palette base colors are a separate approximation (asset _meta / palette audit)"
+  },
+  "palette_note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+  "palette_source": "reconstructed from public map-color tables (minecraft.wiki map color chart, mapart.gay palette fork); NOT extracted from a game binary",
+  "palette_target_mc_version": "1.8",
+  "palette_verification": "approximation \u2014 see _meta.note",
+  "palette_audit": null,
+  "alternating_combinations": "1 pixel = 1 block; the combo space is the 4-depth shade enumeration of the palette"
+}

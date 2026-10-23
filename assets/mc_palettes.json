@@ -1,0 +1,889 @@
+{
+ "_meta": {
+  "format": "firefly-mapart-palette-v1",
+  "shades": [
+   0.71,
+   0.86,
+   1.0,
+   0.53
+  ],
+  "accuracy": "approximation",
+  "note": "Map colors are embedded approximations reconstructed from public map-color tables. Treat as provisional: run a palette audit against the target version before trusting exact-color output. The survival-wool preset contains only blocks whose map colors are directly derivable and are fully obtainable in survival mode.",
+  "shaders_note": "map art cube brightness multipliers 0.71/0.86/1.0/0.53 per depth level 0..3",
+  "source": "reconstructed from public map-color tables (minecraft.wiki map color chart, mapart.gay palette fork); NOT extracted from a game binary",
+  "verification_status": "approximation \u2014 audited structurally (counts/scale range/shade math) but never confirmed against in-game renderer output"
+ },
+ "versions": {
+  "map-full-approx-1.15": {
+   "description": "All usable map colors of a classic ~1.15 palette (colors 1..61; approx)",
+   "blocks_default": {
+    "1": "minecraft:oak_planks",
+    "2": "minecraft:sand",
+    "3": "minecraft:white_terracotta",
+    "_": "minecraft:wool-variant",
+    "8": "minecraft:white_wool",
+    "11": "minecraft:stone"
+   },
+   "colors": [
+    {
+     "id": 1,
+     "name": "grass",
+     "rgb": [
+      127,
+      178,
+      56
+     ],
+     "block": "minecraft:oak_leaves",
+     "survival": true
+    },
+    {
+     "id": 2,
+     "name": "sand",
+     "rgb": [
+      247,
+      233,
+      163
+     ],
+     "block": "minecraft:sand",
+     "survival": true
+    },
+    {
+     "id": 3,
+     "name": "wool-l-gray",
+     "rgb": [
+      199,
+      199,
+      199
+     ],
+     "block": "minecraft:light_gray_wool",
+     "survival": true
+    },
+    {
+     "id": 4,
+     "name": "fire",
+     "rgb": [
+      255,
+      0,
+      0
+     ],
+     "block": "minecraft:red_wool",
+     "survival": true
+    },
+    {
+     "id": 5,
+     "name": "ice",
+     "rgb": [
+      160,
+      160,
+      255
+     ],
+     "block": "minecraft:light_blue_wool",
+     "survival": true
+    },
+    {
+     "id": 6,
+     "name": "steel",
+     "rgb": [
+      105,
+      198,
+      84
+     ],
+     "block": "minecraft:lime_wool",
+     "survival": true
+    },
+    {
+     "id": 7,
+     "name": "plant",
+     "rgb": [
+      250,
+      243,
+      180
+     ],
+     "block": "minecraft:end_stone",
+     "survival": true
+    },
+    {
+     "id": 8,
+     "name": "snow",
+     "rgb": [
+      255,
+      252,
+      245
+     ],
+     "block": "minecraft:white_wool",
+     "survival": true
+    },
+    {
+     "id": 9,
+     "name": "clay",
+     "rgb": [
+      160,
+      89,
+      80
+     ],
+     "block": "minecraft:gray_terracotta",
+     "survival": true
+    },
+    {
+     "id": 10,
+     "name": "dirt_pink",
+     "rgb": [
+      227,
+      207,
+      207
+     ],
+     "block": "minecraft:white_terracotta",
+     "survival": true
+    },
+    {
+     "id": 11,
+     "name": "stone",
+     "rgb": [
+      137,
+      136,
+      135
+     ],
+     "block": "minecraft:stone",
+     "survival": true
+    },
+    {
+     "id": 12,
+     "name": "water",
+     "rgb": [
+      105,
+      118,
+      127
+     ],
+     "block": "minecraft:light_gray_terracotta",
+     "survival": true
+    },
+    {
+     "id": 13,
+     "name": "unused",
+     "rgb": [
+      250,
+      174,
+      183
+     ],
+     "block": "minecraft:pink_wool",
+     "survival": false
+    },
+    {
+     "id": 14,
+     "name": "lava",
+     "rgb": [
+      186,
+      122,
+      105
+     ],
+     "block": "minecraft:orange_terracotta",
+     "survival": true
+    },
+    {
+     "id": 15,
+     "name": "nether",
+     "rgb": [
+      90,
+      59,
+      62
+     ],
+     "block": "minecraft:brown_wool",
+     "survival": true
+    },
+    {
+     "id": 16,
+     "name": "diamond",
+     "rgb": [
+      110,
+      224,
+      224
+     ],
+     "block": "minecraft:light_blue_wool",
+     "survival": true
+    },
+    {
+     "id": 17,
+     "name": "birch",
+     "rgb": [
+      93,
+      229,
+      251
+     ],
+     "block": "minecraft:light_blue_terracotta",
+     "survival": true
+    },
+    {
+     "id": 18,
+     "name": "mushroom",
+     "rgb": [
+      140,
+      224,
+      231
+     ],
+     "block": "minecraft:red_sand",
+     "survival": true
+    },
+    {
+     "id": 19,
+     "name": "spruce",
+     "rgb": [
+      201,
+      139,
+      102
+     ],
+     "block": "minecraft:orange_wool",
+     "survival": true
+    },
+    {
+     "id": 20,
+     "name": "acacia",
+     "rgb": [
+      255,
+      181,
+      170
+     ],
+     "block": "minecraft:red_sand",
+     "survival": true
+    },
+    {
+     "id": 21,
+     "name": "crimson",
+     "rgb": [
+      198,
+      34,
+      59
+     ],
+     "block": "minecraft:red_wool",
+     "survival": true
+    },
+    {
+     "id": 22,
+     "name": "orange-wool",
+     "rgb": [
+      218,
+      129,
+      66
+     ],
+     "block": "minecraft:orange_wool",
+     "survival": true
+    },
+    {
+     "id": 23,
+     "name": "magenta-wool",
+     "rgb": [
+      219,
+      111,
+      183
+     ],
+     "block": "minecraft:magenta_wool",
+     "survival": true
+    },
+    {
+     "id": 24,
+     "name": "ltblue-wool",
+     "rgb": [
+      121,
+      130,
+      224
+     ],
+     "block": "minecraft:light_blue_wool",
+     "survival": true
+    },
+    {
+     "id": 25,
+     "name": "yellow-wool",
+     "rgb": [
+      217,
+      185,
+      47
+     ],
+     "block": "minecraft:yellow_wool",
+     "survival": true
+    },
+    {
+     "id": 26,
+     "name": "lime-wool",
+     "rgb": [
+      110,
+      186,
+      66
+     ],
+     "block": "minecraft:lime_wool",
+     "survival": true
+    },
+    {
+     "id": 27,
+     "name": "pink-wool",
+     "rgb": [
+      239,
+      127,
+      146
+     ],
+     "block": "minecraft:pink_wool",
+     "survival": true
+    },
+    {
+     "id": 28,
+     "name": "gray-wool",
+     "rgb": [
+      103,
+      105,
+      110
+     ],
+     "block": "minecraft:gray_wool",
+     "survival": true
+    },
+    {
+     "id": 29,
+     "name": "ltgray-wool",
+     "rgb": [
+      149,
+      150,
+      153
+     ],
+     "block": "minecraft:light_gray_wool",
+     "survival": true
+    },
+    {
+     "id": 30,
+     "name": "cyan-wool",
+     "rgb": [
+      46,
+      123,
+      139
+     ],
+     "block": "minecraft:cyan_wool",
+     "survival": true
+    },
+    {
+     "id": 31,
+     "name": "purple-wool",
+     "rgb": [
+      131,
+      73,
+      157
+     ],
+     "block": "minecraft:purple_wool",
+     "survival": true
+    },
+    {
+     "id": 32,
+     "name": "blue-wool",
+     "rgb": [
+      63,
+      63,
+      136
+     ],
+     "block": "minecraft:blue_wool",
+     "survival": true
+    },
+    {
+     "id": 33,
+     "name": "brown-wool",
+     "rgb": [
+      117,
+      77,
+      44
+     ],
+     "block": "minecraft:brown_wool",
+     "survival": true
+    },
+    {
+     "id": 34,
+     "name": "green-wool",
+     "rgb": [
+      85,
+      115,
+      47
+     ],
+     "block": "minecraft:green_wool",
+     "survival": true
+    },
+    {
+     "id": 35,
+     "name": "red-wool",
+     "rgb": [
+      171,
+      52,
+      47
+     ],
+     "block": "minecraft:red_wool",
+     "survival": true
+    },
+    {
+     "id": 36,
+     "name": "black-wool",
+     "rgb": [
+      34,
+      36,
+      33
+     ],
+     "block": "minecraft:black_wool",
+     "survival": true
+    },
+    {
+     "id": 37,
+     "name": "gold",
+     "rgb": [
+      215,
+      190,
+      70
+     ],
+     "block": "minecraft:yellow_wool",
+     "survival": true
+    },
+    {
+     "id": 38,
+     "name": "dull-gold",
+     "rgb": [
+      219,
+      163,
+      84
+     ],
+     "block": "minecraft:orange_terracotta",
+     "survival": true
+    },
+    {
+     "id": 39,
+     "name": "terracotta",
+     "rgb": [
+      128,
+      79,
+      62
+     ],
+     "block": "minecraft:terracotta",
+     "survival": true
+    },
+    {
+     "id": 40,
+     "name": "deep-water",
+     "rgb": [
+      56,
+      71,
+      132
+     ],
+     "block": "minecraft:blue_wool",
+     "survival": true
+    },
+    {
+     "id": 41,
+     "name": "terracotta-b",
+     "rgb": [
+      144,
+      87,
+      62
+     ],
+     "block": "minecraft:terracotta",
+     "survival": true
+    },
+    {
+     "id": 42,
+     "name": "terracotta-c",
+     "rgb": [
+      126,
+      75,
+      55
+     ],
+     "block": "minecraft:terracotta",
+     "survival": true
+    },
+    {
+     "id": 43,
+     "name": "blackish",
+     "rgb": [
+      31,
+      33,
+      31
+     ],
+     "block": "minecraft:black_wool",
+     "survival": true
+    },
+    {
+     "id": 44,
+     "name": "dull-red",
+     "rgb": [
+      128,
+      51,
+      45
+     ],
+     "block": "minecraft:brown_terracotta",
+     "survival": true
+    },
+    {
+     "id": 45,
+     "name": "pale-white",
+     "rgb": [
+      248,
+      237,
+      233
+     ],
+     "block": "minecraft:white_wool",
+     "survival": true
+    },
+    {
+     "id": 46,
+     "name": "lt-blue-tc",
+     "rgb": [
+      171,
+      102,
+      84
+     ],
+     "block": "minecraft:red_terracotta",
+     "survival": true
+    },
+    {
+     "id": 47,
+     "name": "crimson-tc",
+     "rgb": [
+      143,
+      56,
+      50
+     ],
+     "block": "minecraft:red_terracotta",
+     "survival": true
+    },
+    {
+     "id": 48,
+     "name": "terracotta-e",
+     "rgb": [
+      255,
+      177,
+      89
+     ],
+     "block": "minecraft:orange_terracotta",
+     "survival": true
+    },
+    {
+     "id": 49,
+     "name": "terracotta-f",
+     "rgb": [
+      190,
+      107,
+      87
+     ],
+     "block": "minecraft:red_terracotta",
+     "survival": true
+    },
+    {
+     "id": 50,
+     "name": "terracotta-g",
+     "rgb": [
+      141,
+      81,
+      62
+     ],
+     "block": "minecraft:terracotta",
+     "survival": true
+    },
+    {
+     "id": 51,
+     "name": "terracotta-h",
+     "rgb": [
+      100,
+      61,
+      46
+     ],
+     "block": "minecraft:terracotta",
+     "survival": true
+    },
+    {
+     "id": 52,
+     "name": "white-tc",
+     "rgb": [
+      211,
+      146,
+      110
+     ],
+     "block": "minecraft:white_terracotta",
+     "survival": true
+    },
+    {
+     "id": 53,
+     "name": "yellow-tc",
+     "rgb": [
+      255,
+      219,
+      133
+     ],
+     "block": "minecraft:yellow_terracotta",
+     "survival": true
+    },
+    {
+     "id": 54,
+     "name": "ltgray-tc",
+     "rgb": [
+      155,
+      98,
+      74
+     ],
+     "block": "minecraft:orange_terracotta",
+     "survival": true
+    },
+    {
+     "id": 55,
+     "name": "gray-tc",
+     "rgb": [
+      248,
+      213,
+      190
+     ],
+     "block": "minecraft:white_terracotta",
+     "survival": true
+    },
+    {
+     "id": 56,
+     "name": "crimson-2",
+     "rgb": [
+      188,
+      45,
+      62
+     ],
+     "block": "minecraft:red_wool",
+     "survival": true
+    },
+    {
+     "id": 57,
+     "name": "crimson-3",
+     "rgb": [
+      153,
+      34,
+      50
+     ],
+     "block": "minecraft:red_wool",
+     "survival": true
+    },
+    {
+     "id": 58,
+     "name": "warped",
+     "rgb": [
+      115,
+      179,
+      151
+     ],
+     "block": "minecraft:warped_wart_block",
+     "survival": true
+    },
+    {
+     "id": 59,
+     "name": "warped-2",
+     "rgb": [
+      89,
+      129,
+      118
+     ],
+     "block": "minecraft:warped_wart_block",
+     "survival": true
+    },
+    {
+     "id": 60,
+     "name": "obsidian",
+     "rgb": [
+      29,
+      29,
+      33
+     ],
+     "block": "minecraft:obsidian",
+     "survival": true
+    },
+    {
+     "id": 61,
+     "name": "respawn-a",
+     "rgb": [
+      155,
+      50,
+      63
+     ],
+     "block": "minecraft:red_wool",
+     "survival": true
+    }
+   ],
+   "source": "reconstructed from public map-color tables (minecraft.wiki map color chart, mapart.gay palette fork); NOT extracted from a game binary",
+   "verification_status": "approximation \u2014 see _meta.note",
+   "target_mc_version": "1.15.2"
+  },
+  "survival-wool-1.8": {
+   "description": "Survival-safe subset built entirely from dyed wool (exact map colors, conservative)",
+   "colors": [
+    {
+     "id": 1,
+     "name": "white-wool",
+     "rgb": [
+      221,
+      221,
+      221
+     ],
+     "block": "minecraft:white_wool",
+     "survival": true
+    },
+    {
+     "id": 2,
+     "name": "orange-wool",
+     "rgb": [
+      218,
+      129,
+      66
+     ],
+     "block": "minecraft:orange_wool",
+     "survival": true
+    },
+    {
+     "id": 3,
+     "name": "magenta-wool",
+     "rgb": [
+      219,
+      111,
+      183
+     ],
+     "block": "minecraft:magenta_wool",
+     "survival": true
+    },
+    {
+     "id": 4,
+     "name": "ltblue-wool",
+     "rgb": [
+      121,
+      130,
+      224
+     ],
+     "block": "minecraft:light_blue_wool",
+     "survival": true
+    },
+    {
+     "id": 5,
+     "name": "yellow-wool",
+     "rgb": [
+      217,
+      185,
+      47
+     ],
+     "block": "minecraft:yellow_wool",
+     "survival": true
+    },
+    {
+     "id": 6,
+     "name": "lime-wool",
+     "rgb": [
+      110,
+      186,
+      66
+     ],
+     "block": "minecraft:lime_wool",
+     "survival": true
+    },
+    {
+     "id": 7,
+     "name": "pink-wool",
+     "rgb": [
+      239,
+      127,
+      146
+     ],
+     "block": "minecraft:pink_wool",
+     "survival": true
+    },
+    {
+     "id": 8,
+     "name": "gray-wool",
+     "rgb": [
+      103,
+      105,
+      110
+     ],
+     "block": "minecraft:gray_wool",
+     "survival": true
+    },
+    {
+     "id": 9,
+     "name": "ltgray-wool",
+     "rgb": [
+      149,
+      150,
+      153
+     ],
+     "block": "minecraft:light_gray_wool",
+     "survival": true
+    },
+    {
+     "id": 10,
+     "name": "cyan-wool",
+     "rgb": [
+      46,
+      123,
+      139
+     ],
+     "block": "minecraft:cyan_wool",
+     "survival": true
+    },
+    {
+     "id": 11,
+     "name": "purple-wool",
+     "rgb": [
+      131,
+      73,
+      157
+     ],
+     "block": "minecraft:purple_wool",
+     "survival": true
+    },
+    {
+     "id": 12,
+     "name": "blue-wool",
+     "rgb": [
+      63,
+      63,
+      136
+     ],
+     "block": "minecraft:blue_wool",
+     "survival": true
+    },
+    {
+     "id": 13,
+     "name": "brown-wool",
+     "rgb": [
+      117,
+      77,
+      44
+     ],
+     "block": "minecraft:brown_wool",
+     "survival": true
+    },
+    {
+     "id": 14,
+     "name": "green-wool",
+     "rgb": [
+      85,
+      115,
+      47
+     ],
+     "block": "minecraft:green_wool",
+     "survival": true
+    },
+    {
+     "id": 15,
+     "name": "red-wool",
+     "rgb": [
+      171,
+      52,
+      47
+     ],
+     "block": "minecraft:red_wool",
+     "survival": true
+    },
+    {
+     "id": 16,
+     "name": "black-wool",
+     "rgb": [
+      34,
+      36,
+      33
+     ],
+     "block": "minecraft:black_wool",
+     "survival": true
+    }
+   ],
+   "source": "reconstructed from public map-color tables (minecraft.wiki map color chart, mapart.gay palette fork); NOT extracted from a game binary",
+   "verification_status": "approximation \u2014 see _meta.note",
+   "target_mc_version": "1.8"
+  }
+ }
+}

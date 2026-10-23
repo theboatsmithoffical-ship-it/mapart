@@ -1,0 +1,183 @@
+{
+  "entries": [
+    {
+      "claims": [
+        {
+          "id": "db611ac89360a0fe",
+          "score": 902.986193,
+          "verified_by": "determinism-v1"
+        },
+        {
+          "id": "5ddf3f92815ecbeb",
+          "score": 1017.733609,
+          "verified_by": "determinism-v1"
+        },
+        {
+          "id": "5ddf3f92815ecbeb",
+          "score": 1017.733609,
+          "verified_by": "determinism-v1"
+        },
+        {
+          "id": "14b11b74da182681",
+          "score": 1142.91903,
+          "verified_by": "determinism-v1"
+        },
+        {
+          "id": "95f4b813a8285c37",
+          "score": 1331.277836,
+          "verified_by": "determinism-v1"
+        },
+        {
+          "id": "1d92556da1a62c92",
+          "score": 1892.556527,
+          "verified_by": "determinism-v1"
+        }
+      ],
+      "created": "2026-10-21T02:15:37.266975+00:00",
+      "evaluated_at": "2026-10-21T02:15:47.693138+00:00",
+      "evaluated_with": {
+        "engine_version": "1.0.0",
+        "suite": "builtin-core-v1"
+      },
+      "hashes": {
+        "package": "d9b9ee88e4994895123fa26677e5a379190504611f8bf0c37d709c807aa6dce2"
+      },
+      "imported_at": "2026-10-21T02:15:37.728458+00:00",
+      "kind": "package",
+      "label": "demo-engine-a",
+      "local_results": [
+        {
+          "claim_delta": 7.127774,
+          "claimed_score": 902.986193,
+          "genome": {
+            "algorithm": "atkinson",
+            "bias": -22,
+            "gamma": 0.9193,
+            "mapping": "nearest",
+            "serpentine": false,
+            "strength": 1.1857
+          },
+          "id": "db611ac89360a0fe",
+          "local_fixture_scores": {
+            "crystal": 984.530748,
+            "shattered": 1077.662979,
+            "steady": 882.813907,
+            "tilted": 695.448233
+          },
+          "local_score": 910.113967,
+          "local_verified": true
+        },
+        {
+          "claim_delta": 20.994565,
+          "claimed_score": 1017.733609,
+          "genome": {
+            "algorithm": "atkinson",
+            "bias": -22,
+            "gamma": 0.8562,
+            "mapping": "nearest",
+            "serpentine": false,
+            "strength": 1.1857
+          },
+          "id": "5ddf3f92815ecbeb",
+          "local_fixture_scores": {
+            "crystal": 1140.256468,
+            "shattered": 1191.669538,
+            "steady": 972.655712,
+            "tilted": 850.330976
+          },
+          "local_score": 1038.728174,
+          "local_verified": true
+        },
+        {
+          "claim_delta": 20.994565,
+          "claimed_score": 1017.733609,
+          "genome": {
+            "algorithm": "atkinson",
+            "bias": -22,
+            "gamma": 0.8562,
+            "mapping": "nearest",
+            "serpentine": false,
+            "strength": 1.1857
+          },
+          "id": "5ddf3f92815ecbeb",
+          "local_fixture_scores": {
+            "crystal": 1140.256468,
+            "shattered": 1191.669538,
+            "steady": 972.655712,
+            "tilted": 850.330976
+          },
+          "local_score": 1038.728174,
+          "local_verified": true
+        },
+        {
+          "claim_delta": 2.646222,
+          "claimed_score": 1142.91903,
+          "genome": {
+            "algorithm": "sierra_lite",
+            "bias": -23,
+            "gamma": 0.9193,
+            "mapping": "nearest",
+            "serpentine": true,
+            "strength": 1.058
+          },
+          "id": "14b11b74da182681",
+          "local_fixture_scores": {
+            "crystal": 1205.924405,
+            "shattered": 1441.246861,
+            "steady": 1144.544005,
+            "tilted": 769.375961
+          },
+          "local_score": 1140.272808,
+          "local_verified": true
+        },
+        {
+          "claim_delta": 74.553705,
+          "claimed_score": 1331.277836,
+          "genome": {
+            "algorithm": "jjn",
+            "bias": -24,
+            "gamma": 1.2835,
+            "mapping": "nearest",
+            "serpentine": true,
+            "strength": 1.5141
+          },
+          "id": "95f4b813a8285c37",
+          "local_fixture_scores": {
+            "crystal": 1018.962159,
+            "shattered": 1998.021936,
+            "steady": 1370.909859,
+            "tilted": 1235.432211
+          },
+          "local_score": 1405.831541,
+          "local_verified": true
+        },
+        {
+          "claim_delta": 26.289138,
+          "claimed_score": 1892.556527,
+          "genome": {
+            "algorithm": "burkes",
+            "bias": 19,
+            "gamma": 1.3353,
+            "mapping": "nearest",
+            "serpentine": true,
+            "strength": 1.4047
+          },
+          "id": "1d92556da1a62c92",
+          "local_fixture_scores": {
+            "crystal": 1311.222736,
+            "shattered": 2940.782934,
+            "steady": 1654.066412,
+            "tilted": 1769.310578
+          },
+          "local_score": 1918.845665,
+          "local_verified": true
+        }
+      ],
+      "local_verified": true,
+      "path": "evolution_demo\\engine_b\\store\\d9b9ee88e4994895123fa266.ffevopack",
+      "sender": {
+        "engine_version": "1.0.0"
+      }
+    }
+  ]
+}
