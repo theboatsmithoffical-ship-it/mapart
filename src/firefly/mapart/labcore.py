@@ -68,8 +68,9 @@ def _lib_fixture(library, image_id: str, size: int):
         small = im.resize((max(1, int(w * scale)), max(1, int(h * scale))))
         im.load()
         arr = np.asarray(small.convert("RGB"), dtype=np.uint8)
-    purpose = "stress" if "stress" in purposes else \
-              ("dev" if "dev" in purposes else "dev")
+    purpose = ("stress" if "stress" in purposes else
+               "validation" if "validation" in purposes else
+               "dev" if "dev" in purposes else "dev")
     label = f"local dataset image {image_id} ({'/'.join(purposes)})"
     return (label, arr)
 

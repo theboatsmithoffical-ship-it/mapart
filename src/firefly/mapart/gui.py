@@ -880,7 +880,22 @@ class GuiApp:
         if not ds:
             return
         ds = ds.strip().lower()
-        removed = self.library.remove_dataset(ds)
+        confirm, reason = False, ""
+        if ds == imagelibrary.LOCKED_PURPOSE:
+            reason = (simpledialog.askstring(
+                "Confirm held-out removal",
+                "Removing the held-out evaluation set needs a written reason:") or "").strip()
+            confirm = bool(reason) and messagebox.askyesno(
+                "Remove held-out set?",
+                f"Delete every held-out image?\n\nReason: {reason}")
+            if not confirm:
+                self.lbl_dl.config(text="held-out removal cancelled (no confirmation)")
+                return
+        try:
+            removed = self.library.remove_dataset(ds, confirm=confirm, reason=reason)
+        except imagelibrary.HoldoutLocked as ex:
+            self.lbl_dl.config(text=f"refused: {ex}")
+            return
         self._dl_refresh()
         self.lbl_dl.config(text=f"removed '{ds}': {len(removed)} images "
                                 f"({', '.join(removed[:4])}{'' if len(removed) <= 4 else '…'})")
@@ -1164,7 +1179,8 @@ class GuiApp:
 
         def work():
             try:
-                camp = benchmark.Campaign(out, mode=mode, tier=tier)
+                camp = benchmark.Campaign(out, mode=mode, tier=tier,
+                                          catalog_path=DATA_DIR / "assetcatalog.db")
                 total = camp._total()
                 rep = camp.run(progress=lambda f, m: self.msg.put(("bprog", f, m)))
                 self.msg.put(("bdone", rep, str(out)))

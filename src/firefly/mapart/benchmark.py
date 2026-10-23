@@ -23,6 +23,7 @@ import numpy as np
 from firefly.evolution.dither import ALGORITHMS
 
 from . import metrics as M
+from . import provenance
 from . import testsuite
 from .appcore import Settings, export, process
 from .registry import all as reg_all
@@ -42,8 +43,9 @@ def _suite_ids(mode: str) -> list:
 
 class Campaign:
     def __init__(self, out_dir, mode="quick", tier=None, time_limit_s=None,
-                 suite_ids=None, seed=4):
+                 suite_ids=None, seed=4, catalog_path=None):
         self.dir = Path(out_dir)
+        self.catalog_path = Path(catalog_path) if catalog_path else None
         self.dir.mkdir(parents=True, exist_ok=True)
         self.mode = mode
         self.tier = tier or ("small" if mode == "quick" else "medium")
@@ -114,6 +116,38 @@ class Campaign:
         return {"evaluated": self._done_count(), "total_possible": n_total}
 
     # ------------------------------------------------------------------
+    def _write_run_meta(self, report: dict) -> dict:
+        """Provenance sidecar: what code/palette/algorithms/settings produced
+        these numbers. Written next to report.json and, when a catalog path is
+        configured, appended to the searchable benchmark history."""
+        settings = {"mode": self.mode, "tier": self.tier, "suite": self.suite_ids,
+                    "seed": self.seed, "strengths": self.strengths,
+                    "algorithms": self.algorithms, "palettes": self.palettes,
+                    "time_limit_s": self.time_limit_s}
+        context = provenance.combined_context(settings, self.palettes)
+        meta = {"format": "firefly-benchmark-run/1", "created": time.time(),
+                **context,
+                "palettes": {k: {"hash": provenance.palette_hash(k),
+                                 "target_mc_version": provenance.target_mc_version(k)}
+                             for k in self.palettes},
+                "tested_combos": report.get("tested_combos"),
+                "untested_combos": report.get("untested_combos"),
+                "results_path": str(self.results_path)}
+        (self.dir / "run_meta.json").write_text(
+            json.dumps(meta, indent=2, default=list), encoding="utf-8")
+        if self.catalog_path:
+            from .assetcatalog import AssetCatalog
+            cat = AssetCatalog(self.catalog_path)
+            cat.record_benchmark(
+                context, mode=self.mode, suite=self.suite_ids,
+                results_path=str(self.results_path),
+                n_evals=int(self._done_count()),
+                summary={"tested_combos": report.get("tested_combos"),
+                         "per_algorithm_best": report.get("per_algorithm_best", {})},
+                source="campaign")
+        return meta
+
+    # ------------------------------------------------------------------
     def _eval_one(self, alg, pal, s, item_id, suite) -> dict:
         img_path = self.dir / f"suite_{item_id}.png"
         t0 = time.perf_counter()
@@ -182,6 +216,7 @@ class Campaign:
             "per_algorithm_best": {k: v["combo"] for k, v in per_algorithm_best.items()},
             "scores_best": {k: v["score"] for k, v in per_image.items()},
         }
+        report["run_meta"] = self._write_run_meta(report)
         (self.dir / "report.json").write_text(json.dumps(report, indent=2, default=list),
                                               encoding="utf-8")
         # CSV summary
