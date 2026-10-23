@@ -1,0 +1,150 @@
+[
+ {
+  "palette": "survival-wool-1.8",
+  "construction": "frame",
+  "max_height": 90,
+  "schem_height": 91,
+  "feasible_pixels": 16382,
+  "infeasible_pixels": 2,
+  "shade_mismatch_realized_vs_intended": 2,
+  "floating_gravity_blocks": 0,
+  "export_validation": {
+   "schem": {
+    "ok": null,
+    "size": [
+     128,
+     91,
+     128
+    ],
+    "blocks_placed": 16384,
+    "volume": 1490944,
+    "palette_size": null,
+    "error": null
+   },
+   "litematic": {
+    "ok": null,
+    "size": [
+     128,
+     91,
+     128
+    ],
+    "blocks_placed": null,
+    "volume": 1490944,
+    "palette_size": null,
+    "error": null
+   }
+  },
+  "seconds": 1.41
+ },
+ {
+  "palette": "survival-wool-1.8",
+  "construction": "solid",
+  "max_height": 90,
+  "schem_height": 91,
+  "feasible_pixels": 16382,
+  "infeasible_pixels": 2,
+  "shade_mismatch_realized_vs_intended": 2,
+  "floating_gravity_blocks": 0,
+  "export_validation": {
+   "schem": {
+    "ok": null,
+    "size": [
+     128,
+     91,
+     128
+    ],
+    "blocks_placed": 263253,
+    "volume": 1490944,
+    "palette_size": null,
+    "error": null
+   },
+   "litematic": {
+    "ok": null,
+    "size": [
+     128,
+     91,
+     128
+    ],
+    "blocks_placed": null,
+    "volume": 1490944,
+    "palette_size": null,
+    "error": null
+   }
+  },
+  "seconds": 1.44
+ },
+ {
+  "palette": "map-full-approx-1.15",
+  "construction": "frame",
+  "max_height": 60,
+  "schem_height": 61,
+  "feasible_pixels": 12937,
+  "infeasible_pixels": 3447,
+  "shade_mismatch_realized_vs_intended": 3444,
+  "floating_gravity_blocks": 1439,
+  "export_validation": {
+   "schem": {
+    "ok": null,
+    "size": [
+     128,
+     61,
+     128
+    ],
+    "blocks_placed": 16384,
+    "volume": 999424,
+    "palette_size": null,
+    "error": null
+   },
+   "litematic": {
+    "ok": null,
+    "size": [
+     128,
+     61,
+     128
+    ],
+    "blocks_placed": null,
+    "volume": 999424,
+    "palette_size": null,
+    "error": null
+   }
+  },
+  "seconds": 1.09
+ },
+ {
+  "palette": "map-full-approx-1.15",
+  "construction": "solid",
+  "max_height": 60,
+  "schem_height": 61,
+  "feasible_pixels": 12937,
+  "infeasible_pixels": 3447,
+  "shade_mismatch_realized_vs_intended": 3444,
+  "floating_gravity_blocks": 0,
+  "export_validation": {
+   "schem": {
+    "ok": null,
+    "size": [
+     128,
+     61,
+     128
+    ],
+    "blocks_placed": 155586,
+    "volume": 999424,
+    "palette_size": null,
+    "error": null
+   },
+   "litematic": {
+    "ok": null,
+    "size": [
+     128,
+     61,
+     128
+    ],
+    "blocks_placed": null,
+    "volume": 999424,
+    "palette_size": null,
+    "error": null
+   }
+  },
+  "seconds": 1.15
+ }
+]

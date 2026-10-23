@@ -6,7 +6,10 @@ breeding_cli_demo/
 operator-ws/
 optimizer-champion/
 screenshots/
-reports/
+reports/*
+!reports/production_readiness/
+reports/production_readiness/logs/
+reports/production_readiness/probe_out/
 champion_run/
 evolution_demo/
 fixtures_engine/
