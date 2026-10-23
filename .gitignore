@@ -7,6 +7,10 @@ operator-ws/
 optimizer-champion/
 screenshots/
 reports/
+champion_run/
+evolution_demo/
+fixtures_engine/
+mapart-output/
 *.ffevopack
 
 # ---- build outputs and copied layouts ----
